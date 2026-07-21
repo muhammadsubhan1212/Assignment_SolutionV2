@@ -2,14 +2,16 @@ export const brand = {
   name: 'Assignment Solution',
   shortName: 'AS',
   tagline: 'Clear writing. Confident grades.',
-  email: 'hello@assignmentsolution.com',
-  phone: '+44 20 7946 0958',
-  phoneTel: '+442079460958',
-  whatsapp: '442079460958',
+  email: 'info@assignmentsolution.online',
+  phone: '+92 312 2264055',
+  phoneTel: '+923122264055',
+  phone2: '+92 319 6869553',
+  phone2Tel: '+923196869553',
+  whatsapp: '923122264055',
   rating: '4.9',
   ratingLabel: 'Excellent',
   copyrightYears: `2024–${new Date().getFullYear()}`,
-  domain: 'assignmentsolution.com',
+  domain: 'assignmentsolution.online',
 };
 
 export const navLinks = [

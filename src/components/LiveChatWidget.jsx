@@ -2,13 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MessageCircle, X, Send } from 'lucide-react'
 import { brand } from '../data/brand'
-
-const cannedReplies = [
-  'Thanks for reaching out! Share your subject, level, and deadline and I can outline next steps.',
-  'You can get an instant estimate on our Order page — prices adjust by academic level and urgency.',
-  'A coordinator can match you with a subject specialist within 15 minutes during business hours.',
-  'Yes — revisions are included within the policy window when they align with the original brief.',
-]
+import { getSmartReply } from '../utils/smartReply'
 
 export default function LiveChatWidget() {
   const [open, setOpen] = useState(false)
@@ -16,7 +10,7 @@ export default function LiveChatWidget() {
     { from: 'agent', text: `Hi — how can ${brand.name} help with your assignment today?` },
   ])
   const [input, setInput] = useState('')
-  const [replyIndex, setReplyIndex] = useState(0)
+  const [typing, setTyping] = useState(false)
   const scrollRef = useRef(null)
 
   useEffect(() => {
@@ -27,7 +21,7 @@ export default function LiveChatWidget() {
 
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight
-  }, [messages, open])
+  }, [messages, open, typing])
 
   const send = (e) => {
     e.preventDefault()
@@ -35,11 +29,13 @@ export default function LiveChatWidget() {
     if (!text) return
     setMessages((m) => [...m, { from: 'user', text }])
     setInput('')
-    const reply = cannedReplies[replyIndex % cannedReplies.length]
-    setReplyIndex((i) => i + 1)
+    setTyping(true)
+    const reply = getSmartReply(text, brand)
+    const thinkTime = 600 + Math.min(reply.length * 12, 1200)
     setTimeout(() => {
+      setTyping(false)
       setMessages((m) => [...m, { from: 'agent', text: reply }])
-    }, 700)
+    }, thinkTime)
   }
 
   return (
@@ -81,7 +77,7 @@ export default function LiveChatWidget() {
               <div>
                 <p className="text-[13px] font-semibold tracking-tight text-white">{brand.name}</p>
                 <p className="flex items-center gap-1.5 text-[11px] text-neutral-400">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Typically replies in minutes
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Smart assistant · replies instantly
                 </p>
               </div>
             </div>
@@ -100,6 +96,20 @@ export default function LiveChatWidget() {
                   </div>
                 </div>
               ))}
+              {typing && (
+                <div className="flex justify-start">
+                  <div className="flex items-center gap-1 rounded-2xl rounded-bl-md border border-neutral-200 bg-white px-4 py-3">
+                    {[0, 1, 2].map((i) => (
+                      <motion.span
+                        key={i}
+                        className="h-1.5 w-1.5 rounded-full bg-neutral-400"
+                        animate={{ opacity: [0.3, 1, 0.3] }}
+                        transition={{ duration: 1, repeat: Infinity, delay: i * 0.15 }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             <form onSubmit={send} className="flex items-center gap-2 border-t border-neutral-100 bg-white p-3">

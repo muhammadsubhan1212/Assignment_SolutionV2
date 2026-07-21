@@ -39,6 +39,7 @@ export default function ContactPage() {
 
   const channels = [
     { icon: Phone, label: brand.phone, href: `tel:${brand.phoneTel}`, sub: 'Call the desk' },
+    { icon: Phone, label: brand.phone2, href: `tel:${brand.phone2Tel}`, sub: 'Alternate line' },
     { icon: MessageCircle, label: 'WhatsApp the desk', href: `https://wa.me/${brand.whatsapp}`, sub: 'Fastest response' },
     { icon: Mail, label: brand.email, href: `mailto:${brand.email}`, sub: 'Email us anytime' },
   ]

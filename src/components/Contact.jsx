@@ -205,6 +205,7 @@ export default function Contact() {
           <div>
             <p className="text-indigo-300/50 text-xs uppercase tracking-widest mb-1">Phone</p>
             <p className="text-white text-base">{brand.phone}</p>
+            <p className="text-white text-base">{brand.phone2}</p>
           </div>
           <div>
             <p className="text-indigo-300/50 text-xs uppercase tracking-widest mb-1">Hours</p>

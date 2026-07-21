@@ -5,6 +5,7 @@ import AnnouncementBar from '../components/AnnouncementBar'
 import Footer from '../components/Footer'
 import BackToTop from '../components/BackToTop'
 import LiveChatWidget from '../components/LiveChatWidget'
+import WhatsAppButton from '../components/WhatsAppButton'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -25,6 +26,7 @@ export default function MainLayout() {
       </main>
       <Footer />
       <BackToTop />
+      <WhatsAppButton />
       <LiveChatWidget />
     </div>
   )
