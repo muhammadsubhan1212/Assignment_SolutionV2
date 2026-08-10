@@ -83,6 +83,8 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+    max-width: 100%;
   }
 
   body {
@@ -91,6 +93,13 @@
     background-color: #f7f8f7;
     line-height: 1.7;
     font-size: 15.5px;
+    overflow-x: clip;
+    max-width: 100%;
+  }
+
+  #root {
+    overflow-x: clip;
+    max-width: 100%;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -152,8 +161,8 @@
 }
 
 @keyframes ken-burns {
-  0% { transform: scale(1) translate(0, 0); }
-  100% { transform: scale(1.08) translate(-1.5%, -1%); }
+  0% { transform: scale(1.02) translate(0, 0); }
+  100% { transform: scale(1.08) translate(-0.5%, -0.5%); }
 }
 
 @keyframes ticker {

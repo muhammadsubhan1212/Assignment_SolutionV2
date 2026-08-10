@@ -9,21 +9,22 @@ function WhatsAppIcon(props) {
   )
 }
 
+const waHref = `https://wa.me/${brand.whatsapp}`
+
 export default function WhatsAppButton() {
   return (
     <motion.a
-      href={`https://wa.me/${brand.whatsapp}`}
+      href={waHref}
       target="_blank"
       rel="noopener noreferrer"
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 1.1, duration: 0.3 }}
-      className="fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl shadow-[#25D366]/35 transition-transform duration-300 hover:scale-105 lg:right-auto lg:left-24"
+      transition={{ delay: 0.6, duration: 0.3 }}
+      className="fixed bottom-24 right-4 z-[60] flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl shadow-[#25D366]/35 transition-transform duration-300 hover:scale-105 active:scale-95 sm:bottom-6 sm:right-6 lg:bottom-6 lg:left-24 lg:right-auto"
       aria-label={`Chat with ${brand.name} on WhatsApp`}
       title="Chat on WhatsApp"
     >
-      <span className="absolute inset-0 -z-10 animate-ping rounded-full bg-[#25D366]/40" />
-      <WhatsAppIcon className="h-6 w-6" />
+      <WhatsAppIcon className="pointer-events-none h-7 w-7" />
     </motion.a>
   )
 }

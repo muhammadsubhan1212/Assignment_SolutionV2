@@ -45,7 +45,7 @@ export default function ServiceLandingPage() {
               className="absolute inset-0 h-full w-full object-cover opacity-40"
             />
             <div className="absolute inset-0 bg-gradient-to-br from-ink-950 via-ink-950/90 to-ink-900/70" />
-            <div className="relative px-5 pb-14 pt-32 sm:px-8 sm:pt-36 md:px-10 lg:pb-16 xl:pl-[max(2rem,calc((100vw-72rem)/2+2rem))]">
+            <div className="relative px-5 pb-14 pt-32 sm:px-8 sm:pt-36 md:px-10 lg:pb-16 xl:pl-10">
               <p className="mb-4 text-[12px] font-medium text-white/45">
                 <Link to="/services" className="hover:text-white">
                   Services
@@ -79,7 +79,7 @@ export default function ServiceLandingPage() {
             </div>
           </div>
           <div className="relative bg-mist-50">
-            <div className="px-5 pb-14 pt-14 sm:px-8 md:px-10 lg:pt-32 xl:pr-[max(2rem,calc((100vw-72rem)/2+2rem))]">
+            <div className="px-5 pb-14 pt-14 sm:px-8 md:px-10 lg:pt-32 xl:pr-10">
               <div className="mx-auto w-full max-w-md lg:mx-0">
                 <PriceCalculator />
               </div>

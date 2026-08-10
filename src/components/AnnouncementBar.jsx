@@ -14,15 +14,15 @@ export default function AnnouncementBar() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ height: 0, opacity: 0 }}
           transition={{ duration: 0.4 }}
-          className="relative bg-ink-950 px-4 py-2.5 text-center"
+          className="relative overflow-hidden bg-ink-950 px-3 py-2.5 text-center sm:px-4"
         >
-          <p className="text-[13px] font-medium text-ink-200">
-            <span className="inline-flex items-center gap-2">
+          <p className="text-[12px] font-medium leading-snug text-ink-200 sm:text-[13px]">
+            <span className="inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
               <span className="hidden text-ink-500 sm:inline">—</span>
-              New students save 15% on the first project
+              <span>New students save 15% on the first project</span>
               <Link
                 to="/order-now"
-                className="font-semibold text-brass-300 underline-offset-2 hover:underline"
+                className="shrink-0 font-semibold text-brass-300 underline-offset-2 hover:underline"
               >
                 Claim offer →
               </Link>

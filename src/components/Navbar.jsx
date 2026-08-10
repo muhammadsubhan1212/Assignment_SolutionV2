@@ -178,11 +178,11 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden">
+      <div className="pointer-events-none fixed bottom-0 left-0 right-0 z-50 lg:hidden">
         <div className="flex justify-center pb-4">
           <button
             onClick={() => setDockOpen(!dockOpen)}
-            className="flex h-12 w-12 items-center justify-center bg-ink-950 text-white shadow-xl shadow-ink-950/30"
+            className="pointer-events-auto flex h-12 w-12 items-center justify-center bg-ink-950 text-white shadow-xl shadow-ink-950/30"
             aria-label="Toggle navigation"
           >
             <motion.span animate={{ rotate: dockOpen ? 45 : 0 }} transition={{ duration: 0.2 }} className="text-xl leading-none">
@@ -198,7 +198,7 @@ export default function Navbar() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-black/40 backdrop-blur-sm"
+                className="pointer-events-auto fixed inset-0 bg-black/40 backdrop-blur-sm"
                 onClick={() => setDockOpen(false)}
               />
               <motion.div
@@ -206,7 +206,7 @@ export default function Navbar() {
                 animate={{ y: 0 }}
                 exit={{ y: '100%' }}
                 transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-                className="absolute bottom-0 left-0 right-0 bg-ink-950 px-6 py-8 pb-12"
+                className="pointer-events-auto absolute bottom-0 left-0 right-0 bg-ink-950 px-6 py-8 pb-12"
               >
                 <div className="mb-6 grid grid-cols-3 gap-4">
                   {navLinks.map((link) => {

@@ -37,14 +37,14 @@ export default function Hero() {
       />
       <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-mist-50 to-transparent" />
 
-      <motion.div style={{ y, opacity }} className="relative z-10 flex min-h-[100svh] items-end pb-24 pt-36 sm:items-center sm:pb-20 sm:pt-28">
-        <div className="mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8">
-          <div className="max-w-2xl">
+      <motion.div style={{ y, opacity }} className="relative z-10 flex min-h-[100svh] items-end pb-28 pt-32 sm:items-center sm:pb-20 sm:pt-28">
+        <div className="mx-auto w-full min-w-0 max-w-6xl px-5 sm:px-6 lg:px-8">
+          <div className="max-w-2xl min-w-0">
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="font-heading text-[clamp(2.75rem,8vw,5.5rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-white"
+              className="font-heading text-[clamp(2.25rem,9vw,5.5rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-white break-words"
             >
               {brand.name}
             </motion.p>
