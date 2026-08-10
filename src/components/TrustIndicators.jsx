@@ -17,9 +17,9 @@ export default function TrustIndicators() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.15 })
 
   return (
-    <section ref={ref} className="relative bg-mist-50">
+    <section ref={ref} className="relative w-full max-w-full overflow-x-hidden bg-mist-50">
       <div className="border-y border-mist-200/80 bg-white/70 backdrop-blur-sm">
-        <div className="overflow-hidden py-4">
+        <div className="max-w-full overflow-x-hidden py-4">
           <div className="trust-ticker flex w-max gap-10 whitespace-nowrap px-6">
             {[...trustItems, ...trustItems].map((item, i) => (
               <span key={`${item}-${i}`} className="flex items-center gap-10 text-[12px] font-semibold uppercase tracking-[0.18em] text-ink-700">

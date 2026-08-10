@@ -17,11 +17,11 @@ function ScrollToTop() {
 
 export default function MainLayout() {
   return (
-    <div className="flex min-h-screen w-full max-w-[100%] flex-col overflow-x-clip">
+    <div className="flex min-h-screen w-full max-w-full flex-col overflow-x-hidden">
       <ScrollToTop />
       <AnnouncementBar />
       <Navbar />
-      <main className="w-full min-w-0 flex-1">
+      <main className="w-full min-w-0 max-w-full flex-1 overflow-x-hidden">
         <Outlet />
       </main>
       <Footer />
