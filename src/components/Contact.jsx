@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer'
 import toast from 'react-hot-toast'
 import { submitContact } from '../services/fareService'
 import { brand } from '../data/brand'
+import { img } from '../data/images'
 
 function FloatingField({ label, id, type = 'text', register, error, registerOptions }) {
   const [focused, setFocused] = useState(false)
@@ -16,11 +17,11 @@ function FloatingField({ label, id, type = 'text', register, error, registerOpti
     <div className="relative pt-5">
       <motion.label
         htmlFor={id}
-        className="absolute left-0 text-neutral-400 pointer-events-none origin-left"
+        className="absolute left-0 text-ink-400 pointer-events-none origin-left"
         animate={{
           y: focused || hasValue ? -20 : 0,
           scale: focused || hasValue ? 0.8 : 1,
-          color: focused ? '#0a0a0a' : '#a3a3a3',
+          color: focused ? '#152536' : '#9aaba2',
         }}
         transition={{ duration: 0.2 }}
       >
@@ -29,7 +30,7 @@ function FloatingField({ label, id, type = 'text', register, error, registerOpti
       <input
         id={id}
         type={type}
-        className="w-full bg-transparent border-b border-neutral-200 pb-2 pt-0 text-neutral-900 focus:outline-none focus:border-neutral-900 transition-colors duration-300"
+        className="w-full bg-transparent border-b border-mist-200 pb-2 pt-0 text-ink-950 focus:outline-none focus:border-ink-950 transition-colors duration-300"
         onFocus={() => setFocused(true)}
         onBlur={(e) => {
           setFocused(false)
@@ -58,11 +59,11 @@ function FloatingTextarea({ label, id, register, error, registerOptions }) {
     <div className="relative pt-5">
       <motion.label
         htmlFor={id}
-        className="absolute left-0 top-5 text-neutral-400 pointer-events-none origin-left"
+        className="absolute left-0 top-5 text-ink-400 pointer-events-none origin-left"
         animate={{
           y: focused || hasValue ? -20 : 0,
           scale: focused || hasValue ? 0.8 : 1,
-          color: focused ? '#0a0a0a' : '#a3a3a3',
+          color: focused ? '#152536' : '#9aaba2',
         }}
         transition={{ duration: 0.2 }}
       >
@@ -71,7 +72,7 @@ function FloatingTextarea({ label, id, register, error, registerOptions }) {
       <textarea
         id={id}
         rows={4}
-        className="w-full bg-transparent border-b border-neutral-200 pb-2 pt-0 text-neutral-900 focus:outline-none focus:border-neutral-900 transition-colors duration-300 resize-none"
+        className="w-full bg-transparent border-b border-mist-200 pb-2 pt-0 text-ink-950 focus:outline-none focus:border-ink-950 transition-colors duration-300 resize-none"
         onFocus={() => setFocused(true)}
         onBlur={(e) => {
           setFocused(false)
@@ -100,11 +101,11 @@ function FloatingSelect({ label, id, options, register, error, registerOptions }
     <div className="relative pt-5">
       <motion.label
         htmlFor={id}
-        className="absolute left-0 text-neutral-400 pointer-events-none origin-left"
+        className="absolute left-0 text-ink-400 pointer-events-none origin-left"
         animate={{
           y: focused || hasValue ? -20 : 0,
           scale: focused || hasValue ? 0.8 : 1,
-          color: focused ? '#0a0a0a' : '#a3a3a3',
+          color: focused ? '#152536' : '#9aaba2',
         }}
         transition={{ duration: 0.2 }}
       >
@@ -112,7 +113,7 @@ function FloatingSelect({ label, id, options, register, error, registerOptions }
       </motion.label>
       <select
         id={id}
-        className="w-full bg-transparent border-b border-neutral-200 pb-2 pt-0 text-neutral-900 focus:outline-none focus:border-neutral-900 transition-colors duration-300 appearance-none cursor-pointer"
+        className="w-full bg-transparent border-b border-mist-200 pb-2 pt-0 text-ink-950 focus:outline-none focus:border-ink-950 transition-colors duration-300 appearance-none cursor-pointer"
         onFocus={() => setFocused(true)}
         onBlur={(e) => {
           setFocused(false)
@@ -188,28 +189,36 @@ export default function Contact() {
         initial={{ opacity: 0, x: -40 }}
         animate={inView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="lg:w-[40%] bg-[#1e1b4b] px-8 sm:px-12 lg:px-16 py-16 lg:py-24 flex flex-col justify-center"
+        className="lg:w-[40%] relative overflow-hidden px-8 sm:px-12 lg:px-16 py-16 lg:py-24 flex flex-col justify-center bg-ink-950"
       >
-        <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-6">
-          Let's talk about<br />your project
-        </h2>
-        <p className="text-indigo-200/70 text-base leading-relaxed mb-12">
-          Share your requirements and we'll match you with the perfect expert for your assignment.
-        </p>
+        <img
+          src={img.consultantOnline}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-ink-950/80" />
+        <div className="relative z-10">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-6 font-heading">
+            Let's talk about<br />your project
+          </h2>
+          <p className="text-white/70 text-base leading-relaxed mb-12">
+            Share your requirements and we'll match you with the perfect expert for your assignment.
+          </p>
 
-        <div className="space-y-6">
-          <div>
-            <p className="text-indigo-300/50 text-xs uppercase tracking-widest mb-1">Email</p>
-            <p className="text-white text-base">{brand.email}</p>
-          </div>
-          <div>
-            <p className="text-indigo-300/50 text-xs uppercase tracking-widest mb-1">Phone</p>
-            <p className="text-white text-base">{brand.phone}</p>
-            <p className="text-white text-base">{brand.phone2}</p>
-          </div>
-          <div>
-            <p className="text-indigo-300/50 text-xs uppercase tracking-widest mb-1">Hours</p>
-            <p className="text-white text-base">24/7 — Always available</p>
+          <div className="space-y-6">
+            <div>
+              <p className="text-brass-300/70 text-xs uppercase tracking-widest mb-1">Email</p>
+              <p className="text-white text-base">{brand.email}</p>
+            </div>
+            <div>
+              <p className="text-brass-300/70 text-xs uppercase tracking-widest mb-1">Phone</p>
+              <p className="text-white text-base">{brand.phone}</p>
+              <p className="text-white text-base">{brand.phone2}</p>
+            </div>
+            <div>
+              <p className="text-brass-300/70 text-xs uppercase tracking-widest mb-1">Hours</p>
+              <p className="text-white text-base">24/7 — Always available</p>
+            </div>
           </div>
         </div>
       </motion.div>
@@ -275,7 +284,7 @@ export default function Contact() {
             disabled={isSubmitting}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="mt-10 w-full bg-[#0a0a0a] text-white py-4 text-sm tracking-wide uppercase font-medium relative overflow-hidden transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-neutral-800"
+            className="mt-10 w-full bg-ink-950 text-white py-4 text-sm tracking-wide uppercase font-semibold relative overflow-hidden transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-ink-800"
           >
             <span className="inline-flex items-center gap-2 transition-transform duration-300">
               {isSubmitting ? 'Sending...' : 'Send Message'}
@@ -288,7 +297,7 @@ export default function Contact() {
             </span>
           </button>
 
-          <p className="mt-4 text-xs text-neutral-400 text-center">
+          <p className="mt-4 text-xs text-ink-400 text-center">
             We respond within 30 minutes
           </p>
         </form>

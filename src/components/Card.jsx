@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion'
 
 const cardVariants = {
-  default: 'bg-white border border-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-slate-200/50',
-  elevated: 'bg-white shadow-lg shadow-slate-200/50 hover:shadow-xl hover:shadow-slate-300/50',
-  glass: 'bg-white/70 backdrop-blur-xl border border-white/40 shadow-lg',
-  dark: 'bg-slate-900 border border-slate-800 text-white',
-  gradient: 'bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-xl shadow-indigo-500/25',
+  default: 'bg-white border border-mist-200 hover:border-mist-300',
+  elevated: 'bg-white border border-mist-200 shadow-lg shadow-ink-950/5',
+  glass: 'bg-white/70 backdrop-blur-xl border border-white/40',
+  dark: 'bg-ink-950 border border-ink-800 text-white',
+  gradient: 'bg-ink-950 text-white shadow-xl shadow-ink-950/20',
 }
 
 export default function Card({
@@ -19,7 +19,7 @@ export default function Card({
   return (
     <motion.div
       whileHover={hover ? { y: -4, transition: { duration: 0.3 } } : {}}
-      className={`rounded-2xl transition-all duration-300 ${padding} ${cardVariants[variant]} ${className}`}
+      className={`rounded-lg transition-all duration-300 ${padding} ${cardVariants[variant]} ${className}`}
       {...props}
     >
       {children}

@@ -5,7 +5,7 @@ export default function Accordion({ items, defaultOpen = 0 }) {
   const [openIndex, setOpenIndex] = useState(defaultOpen)
 
   return (
-    <div className="divide-y divide-neutral-100">
+    <div className="divide-y divide-mist-200">
       {items.map((item, index) => {
         const isOpen = openIndex === index
         const question = item.q ?? item.question
@@ -14,7 +14,7 @@ export default function Accordion({ items, defaultOpen = 0 }) {
           <div key={index} className="relative">
             <div
               className="absolute bottom-0 left-0 top-0 w-[2px] transition-colors duration-300"
-              style={{ backgroundColor: isOpen ? '#171717' : 'transparent' }}
+              style={{ backgroundColor: isOpen ? '#b8956a' : 'transparent' }}
             />
             <button
               onClick={() => setOpenIndex(isOpen ? -1 : index)}
@@ -23,13 +23,13 @@ export default function Accordion({ items, defaultOpen = 0 }) {
             >
               <span
                 className={`text-[15px] transition-all duration-200 ${
-                  isOpen ? 'font-semibold text-neutral-900' : 'font-medium text-neutral-600 group-hover:text-neutral-900'
+                  isOpen ? 'font-semibold text-ink-950' : 'font-medium text-ink-600 group-hover:text-ink-950'
                 }`}
               >
                 {question}
               </span>
               <span
-                className="flex h-6 w-6 shrink-0 items-center justify-center text-neutral-400 transition-transform duration-300"
+                className="flex h-6 w-6 shrink-0 items-center justify-center text-ink-400 transition-transform duration-300"
                 style={{ transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)' }}
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
@@ -48,7 +48,7 @@ export default function Accordion({ items, defaultOpen = 0 }) {
                   className="overflow-hidden"
                 >
                   <div className="pb-6 pl-5 pr-8">
-                    <p className="text-sm leading-relaxed text-neutral-500">{answer}</p>
+                    <p className="text-sm leading-relaxed text-ink-600">{answer}</p>
                   </div>
                 </motion.div>
               )}

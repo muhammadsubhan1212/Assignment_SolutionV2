@@ -1,3 +1,5 @@
+export const WORDS_PER_PAGE = 250
+
 export const paperTypes = [
   'Essay',
   'Book Report',
@@ -34,13 +36,34 @@ export const deadlines = [
 ];
 
 export const pageOptions = Array.from({ length: 200 }, (_, i) => {
-  const pages = i + 1;
-  const words = pages * 250;
+  const pages = i + 1
+  const words = pages * WORDS_PER_PAGE
   return {
     value: pages,
-    label: `${words} Words - ${pages} Page${pages > 1 ? 's' : ''}`,
-  };
-});
+    words,
+    label: `${words.toLocaleString()} words · ${pages} page${pages > 1 ? 's' : ''}`,
+  }
+})
+
+/** Word-first length presets for the calculator */
+export const wordPresets = [
+  500, 750, 1000, 1250, 1500, 2000, 2500, 3000, 3750, 5000, 6250, 7500, 10000, 12500, 15000,
+]
+
+export const wordOptions = [
+  ...wordPresets.map((words) => ({
+    value: words,
+    pages: words / WORDS_PER_PAGE,
+    label: `${words.toLocaleString()} words · ${words / WORDS_PER_PAGE} page${words > WORDS_PER_PAGE ? 's' : ''}`,
+  })),
+  ...pageOptions
+    .filter((p) => !wordPresets.includes(p.words) && p.words <= 20000)
+    .map((p) => ({
+      value: p.words,
+      pages: p.value,
+      label: p.label,
+    })),
+]
 
 export const referenceStyles = ['APA', 'MLA', 'Chicago', 'Turabian', 'Harvard', 'Oxford', 'Vancouver', 'CBE', 'Other'];
 

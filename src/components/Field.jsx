@@ -2,23 +2,23 @@ import { forwardRef } from 'react'
 import { cn } from '../utils/helpers'
 
 const controlBase =
-  'w-full px-3.5 py-2.5 text-sm bg-neutral-50 border rounded-xl outline-none transition-all duration-200 placeholder:text-neutral-400'
+  'w-full px-3.5 py-2.5 text-sm bg-mist-50 border border-mist-200 rounded-lg text-ink-950 outline-none transition-all duration-200 placeholder:text-ink-400'
 
 const controlState = (invalid) =>
   invalid
     ? 'border-red-300 focus:border-red-500 focus:ring-2 focus:ring-red-100'
-    : 'border-neutral-200 focus:border-neutral-400 focus:ring-2 focus:ring-neutral-100'
+    : 'focus:border-ink-400 focus:ring-2 focus:ring-mist-100'
 
 export function Field({ label, error, hint, htmlFor, children, className = '' }) {
   return (
     <div className={className}>
       {label && (
-        <label htmlFor={htmlFor} className="block text-sm font-medium text-neutral-700 mb-1.5">
+        <label htmlFor={htmlFor} className="mb-1.5 block text-sm font-medium text-ink-700">
           {label}
         </label>
       )}
       {children}
-      {hint && !error && <p className="mt-1.5 text-xs text-neutral-400">{hint}</p>}
+      {hint && !error && <p className="mt-1.5 text-xs text-ink-400">{hint}</p>}
       {error && <p className="mt-1.5 text-xs text-red-500">{error}</p>}
     </div>
   )

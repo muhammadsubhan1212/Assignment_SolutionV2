@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
+import { Plus } from 'lucide-react'
 import { faqs as faqData } from '../data/home'
+import { img } from '../data/images'
 
 const faqs = faqData.map((f) => ({ question: f.q, answer: f.a }))
 
@@ -10,151 +12,68 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0)
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true })
 
-  const toggle = (index) => {
-    setOpenIndex(openIndex === index ? -1 : index)
-  }
-
   return (
-    <section
-      id="faq"
-      className="py-28 sm:py-36 relative overflow-hidden"
-      style={{
-        background: `
-          repeating-linear-gradient(
-            -45deg,
-            transparent,
-            transparent 20px,
-            rgba(0, 0, 0, 0.015) 20px,
-            rgba(0, 0, 0, 0.015) 21px
-          ),
-          #ffffff
-        `,
-      }}
-    >
-      <div ref={ref} className="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
-          {/* Left column — heading + decorative */}
+    <section id="faq" ref={ref} className="bg-white py-24 sm:py-32">
+      <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-4 relative"
+            className="lg:col-span-5"
           >
-            {/* Decorative question mark */}
-            <div
-              className="absolute -top-8 -left-4 text-[200px] font-serif font-bold leading-none select-none pointer-events-none"
-              style={{ color: 'rgba(0, 0, 0, 0.04)' }}
-              aria-hidden="true"
-            >
-              ?
+            <div className="relative aspect-[4/5] overflow-hidden">
+              <img src={img.studentPlanning} alt="Student planning a study schedule" loading="lazy" className="img-cover" />
             </div>
-
-            <div className="relative">
-              <p className="text-sm font-medium text-neutral-500 mb-3 tracking-wide uppercase">
-                FAQ
-              </p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 tracking-tight mb-4">
-                Questions we hear often
-              </h2>
-              <p className="text-neutral-500 text-sm leading-relaxed mb-8">
-                Can't find what you're looking for? Our team is happy to help with anything specific.
-              </p>
-              <Link
-                to="/contact-us"
-                className="inline-flex items-center gap-2 text-sm font-medium text-neutral-900 border-b border-neutral-900 pb-0.5 hover:border-neutral-400 hover:text-neutral-600 transition-colors duration-200"
-              >
-                Reach out to us
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="mt-px"
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
+            <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.2em] text-brass-600">FAQ</p>
+            <h2 className="mt-3 font-heading text-[clamp(2rem,3.5vw,2.75rem)] font-semibold text-ink-950">
+              Questions we hear often
+            </h2>
+            <p className="mt-4 text-[14.5px] leading-relaxed text-ink-600">
+              Still unsure?{' '}
+              <Link to="/contact-us" className="font-semibold text-ink-950 underline decoration-brass-400 underline-offset-4">
+                Talk to the desk
               </Link>
-            </div>
+              .
+            </p>
           </motion.div>
 
-          {/* Right column — accordion */}
-          <div className="lg:col-span-8">
-            <div className="space-y-0">
+          <div className="lg:col-span-7">
+            <div className="divide-y divide-mist-200 border-y border-mist-200">
               {faqs.map((faq, index) => {
-                const isOpen = openIndex === index
-
+                const open = openIndex === index
                 return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={inView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.4, delay: 0.1 + index * 0.06 }}
-                    className="relative"
-                  >
-                    {/* Left accent border */}
-                    <div
-                      className="absolute left-0 top-0 bottom-0 w-[2px] transition-colors duration-300"
-                      style={{ backgroundColor: isOpen ? '#171717' : 'transparent' }}
-                    />
-
+                  <div key={faq.question}>
                     <button
-                      onClick={() => toggle(index)}
-                      className="w-full text-left py-5 pl-5 pr-4 flex items-center justify-between gap-4 group cursor-pointer"
-                      aria-expanded={isOpen}
+                      type="button"
+                      onClick={() => setOpenIndex(open ? -1 : index)}
+                      className="flex w-full items-start justify-between gap-4 py-5 text-left"
+                      aria-expanded={open}
                     >
-                      <span
-                        className={`text-[15px] transition-all duration-200 ${
-                          isOpen
-                            ? 'font-semibold text-neutral-900'
-                            : 'font-medium text-neutral-600 group-hover:text-neutral-900'
-                        }`}
-                      >
+                      <span className="font-heading text-lg font-semibold text-ink-950 sm:text-xl">
                         {faq.question}
                       </span>
-
-                      {/* Plus icon that rotates to X */}
-                      <span
-                        className="shrink-0 w-6 h-6 flex items-center justify-center text-neutral-400 transition-transform duration-300"
-                        style={{ transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)' }}
+                      <motion.span
+                        animate={{ rotate: open ? 45 : 0 }}
+                        className="mt-1 shrink-0 text-brass-600"
                       >
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 14 14"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                        >
-                          <line x1="7" y1="0" x2="7" y2="14" />
-                          <line x1="0" y1="7" x2="14" y2="7" />
-                        </svg>
-                      </span>
+                        <Plus size={18} />
+                      </motion.span>
                     </button>
-
-                    {/* Answer */}
                     <AnimatePresence initial={false}>
-                      {isOpen && (
+                      {open && (
                         <motion.div
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: 'auto', opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                          transition={{ duration: 0.28 }}
                           className="overflow-hidden"
                         >
-                          <div className="pl-5 pr-8 pb-6">
-                            <p className="text-sm text-neutral-500 leading-relaxed">
-                              {faq.answer}
-                            </p>
-                          </div>
+                          <p className="pb-5 pr-8 text-[14.5px] leading-relaxed text-ink-600">{faq.answer}</p>
                         </motion.div>
                       )}
                     </AnimatePresence>
-                  </motion.div>
+                  </div>
                 )
               })}
             </div>

@@ -1,74 +1,64 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { getInitials } from '../utils/helpers'
 import { writers } from '../data/home'
-
-const avatarTints = ['#ede9fe', '#dbeafe', '#dcfce7', '#fef3c7', '#fee2e2', '#e0e7ff']
-const avatarInk = ['#7c3aed', '#2563eb', '#16a34a', '#d97706', '#dc2626', '#4f46e5']
+import { writerPhotos, img } from '../data/images'
 
 export default function Writers() {
-  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true })
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 })
+  const list = (writers || []).slice(0, 6)
 
   return (
-    <section ref={ref} className="bg-[#faf9f7] py-24 sm:py-32">
+    <section ref={ref} className="bg-mist-100/60 py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-xl">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-brass-600">Our desk</p>
+            <h2 className="mt-3 font-heading text-[clamp(2rem,4vw,3.25rem)] font-semibold text-ink-950">
+              Specialists who live in the literature
+            </h2>
+          </div>
+          <p className="max-w-sm text-[14.5px] leading-relaxed text-ink-600">
+            A collaborative editorial culture — researchers, editors, and career writers working as one desk.
+          </p>
+        </div>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="mb-14 sm:mb-16"
+          className="mt-12 relative aspect-[21/9] overflow-hidden"
         >
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">The people behind the work</p>
-          <h2 className="max-w-2xl text-3xl font-bold leading-[1.1] tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl">
-            Writers matched to
-            <br />
-            <span className="font-light italic text-neutral-300">your discipline.</span>
-          </h2>
+          <img src={img.writers} alt="Writers collaborating around a conference table" loading="lazy" className="img-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink-950/50 to-transparent" />
         </motion.div>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {writers.map((w, i) => (
-            <motion.article
-              key={w.name}
-              initial={{ opacity: 0, y: 24 }}
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {list.map((w, i) => (
+            <motion.div
+              key={w.name || i}
+              initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: (i % 3) * 0.08 + 0.1 }}
-              className="group flex flex-col rounded-2xl border border-neutral-200/80 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-16px_rgba(0,0,0,0.12)]"
+              transition={{ duration: 0.55, delay: 0.05 * i }}
+              className="group overflow-hidden bg-white"
             >
-              <div className="flex items-center gap-3.5">
-                <span
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-sm font-bold"
-                  style={{ backgroundColor: avatarTints[i % avatarTints.length], color: avatarInk[i % avatarInk.length] }}
-                >
-                  {getInitials(w.name)}
-                </span>
-                <div>
-                  <h3 className="text-[15px] font-semibold text-neutral-900">{w.name}</h3>
-                  <p className="text-[12px] text-neutral-400">{w.focus[0]} specialist</p>
-                </div>
+              <div className="relative aspect-[5/4] overflow-hidden">
+                <img
+                  src={writerPhotos[i % writerPhotos.length]}
+                  alt=""
+                  loading="lazy"
+                  className="img-cover transition-transform duration-700 group-hover:scale-105"
+                />
               </div>
-
-              <p className="mt-4 flex-1 text-[13.5px] leading-relaxed text-neutral-500">{w.bio}</p>
-
-              <div className="mt-4 flex flex-wrap gap-1.5">
-                {w.focus.slice(0, 3).map((f) => (
-                  <span key={f} className="rounded-md bg-neutral-100 px-2 py-1 text-[10.5px] font-medium text-neutral-600">
-                    {f}
-                  </span>
-                ))}
+              <div className="p-5">
+                <h3 className="font-heading text-lg font-semibold text-ink-950">{w.name}</h3>
+                <p className="mt-1 text-[12px] font-semibold uppercase tracking-[0.12em] text-brass-600">
+                  {(w.focus && w.focus[0]) || 'Specialist'}
+                </p>
+                {w.bio && (
+                  <p className="mt-3 line-clamp-3 text-[13.5px] leading-relaxed text-ink-600">{w.bio}</p>
+                )}
               </div>
-
-              <div className="mt-5 flex items-center justify-between border-t border-neutral-100 pt-4">
-                <div>
-                  <p className="font-mono text-base font-bold text-neutral-900">{w.rate}</p>
-                  <p className="text-[10.5px] text-neutral-400">success rate</p>
-                </div>
-                <div className="text-right">
-                  <p className="font-mono text-base font-bold text-neutral-900">{w.projects}</p>
-                  <p className="text-[10.5px] text-neutral-400">projects</p>
-                </div>
-              </div>
-            </motion.article>
+            </motion.div>
           ))}
         </div>
       </div>

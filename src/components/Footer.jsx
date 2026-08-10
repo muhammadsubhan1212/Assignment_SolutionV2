@@ -20,11 +20,11 @@ const legalLinks = [
 function Column({ title, links }) {
   return (
     <div>
-      <h3 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-400">{title}</h3>
+      <h3 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-500">{title}</h3>
       <ul className="space-y-2.5">
         {links.map((l) => (
           <li key={l.path}>
-            <Link to={l.path} className="text-[13.5px] text-neutral-500 transition-colors hover:text-neutral-900">
+            <Link to={l.path} className="text-[13.5px] text-ink-600 transition-colors hover:text-ink-950">
               {l.label}
             </Link>
           </li>
@@ -36,7 +36,7 @@ function Column({ title, links }) {
 
 export default function Footer() {
   return (
-    <footer className="border-t border-neutral-100 bg-white">
+    <footer className="border-t border-mist-200 bg-mist-50">
       <div className="mx-auto max-w-6xl px-5 pb-28 pt-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr] lg:gap-8">
           {/* Brand + contact */}
@@ -47,29 +47,29 @@ export default function Footer() {
                 alt={`${brand.name} logo`}
                 className="h-10 w-auto transition-transform duration-300 group-hover:-rotate-3"
               />
-              <span className="text-[16px] font-semibold tracking-tight text-neutral-900">{brand.name}</span>
+              <span className="text-[16px] font-semibold tracking-tight text-ink-900">{brand.name}</span>
             </Link>
-            <p className="mt-4 max-w-xs text-[13.5px] leading-relaxed text-neutral-500">
+            <p className="mt-4 max-w-xs text-[13.5px] leading-relaxed text-ink-600/80">
               Academic writing support for university students worldwide — subject-matched writers, transparent
               pricing in your currency, and humane deadlines.
             </p>
             <div className="mt-6 space-y-2.5">
-              <a href={`mailto:${brand.email}`} className="flex items-center gap-2.5 text-[13.5px] text-neutral-600 transition-colors hover:text-neutral-900">
-                <Mail size={15} className="text-neutral-400" /> {brand.email}
+              <a href={`mailto:${brand.email}`} className="flex items-center gap-2.5 text-[13.5px] text-ink-700 transition-colors hover:text-ink-950">
+                <Mail size={15} className="text-brass-600" /> {brand.email}
               </a>
-              <a href={`tel:${brand.phoneTel}`} className="flex items-center gap-2.5 text-[13.5px] text-neutral-600 transition-colors hover:text-neutral-900">
-                <Phone size={15} className="text-neutral-400" /> {brand.phone}
+              <a href={`tel:${brand.phoneTel}`} className="flex items-center gap-2.5 text-[13.5px] text-ink-700 transition-colors hover:text-ink-950">
+                <Phone size={15} className="text-brass-600" /> {brand.phone}
               </a>
-              <a href={`tel:${brand.phone2Tel}`} className="flex items-center gap-2.5 text-[13.5px] text-neutral-600 transition-colors hover:text-neutral-900">
-                <Phone size={15} className="text-neutral-400" /> {brand.phone2}
+              <a href={`tel:${brand.phone2Tel}`} className="flex items-center gap-2.5 text-[13.5px] text-ink-700 transition-colors hover:text-ink-950">
+                <Phone size={15} className="text-brass-600" /> {brand.phone2}
               </a>
               <a
                 href={`https://wa.me/${brand.whatsapp}`}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2.5 text-[13.5px] text-neutral-600 transition-colors hover:text-neutral-900"
+                className="flex items-center gap-2.5 text-[13.5px] text-ink-700 transition-colors hover:text-ink-950"
               >
-                <MessageCircle size={15} className="text-neutral-400" /> WhatsApp the desk
+                <MessageCircle size={15} className="text-brass-600" /> WhatsApp the desk
               </a>
             </div>
           </div>
@@ -80,8 +80,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-neutral-100 pt-6 sm:flex-row">
-          <span className="text-xs text-neutral-400">
+        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-mist-200 pt-6 sm:flex-row">
+          <span className="text-xs text-ink-500">
             &copy; {brand.copyrightYears} {brand.name}. All rights reserved.
           </span>
           <div className="flex items-center gap-4">
@@ -91,7 +91,7 @@ export default function Footer() {
                 href={s.href}
                 target="_blank"
                 rel="noreferrer"
-                className="text-xs font-medium text-neutral-400 transition-colors hover:text-neutral-900"
+                className="text-xs font-medium text-ink-500 transition-colors hover:text-ink-900"
               >
                 {s.label}
               </a>

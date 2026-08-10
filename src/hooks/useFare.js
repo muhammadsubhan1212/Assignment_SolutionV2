@@ -1,34 +1,27 @@
-import { useEffect, useState } from 'react';
-import { getFare } from '../services/fareService';
+import { useMemo } from 'react'
+import { calcQuote } from '../utils/pricing'
 
-export function useFare(academicLevelId, deadlineId, pages) {
-  const [perPage, setPerPage] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    let active = true;
-
-    async function fetchFare() {
-      setLoading(true);
-      setError(null);
-      try {
-        const data = await getFare({ academic_level_id: academicLevelId, deadline_id: deadlineId });
-        if (active) setPerPage(data.per_page_price ?? 0);
-      } catch (err) {
-        if (active) setError(err.message || 'Unable to fetch price');
-      } finally {
-        if (active) setLoading(false);
-      }
+/**
+ * Instant client-side quote — word-based (pages optional).
+ * Pass either `words` or `pages` (pages convert at 250 words each).
+ */
+export function useFare(academicLevelId, deadlineId, length, paperType = 'Essay', lengthUnit = 'pages') {
+  const quote = useMemo(() => {
+    const input = {
+      academicLevelId,
+      deadlineId,
+      paperType,
     }
+    if (lengthUnit === 'words') input.words = length
+    else input.pages = length
+    return calcQuote(input)
+  }, [academicLevelId, deadlineId, length, paperType, lengthUnit])
 
-    fetchFare();
-    return () => {
-      active = false;
-    };
-  }, [academicLevelId, deadlineId]);
-
-  const total = perPage * Number(pages || 0);
-
-  return { perPage, total, loading, error };
+  return {
+    ...quote,
+    perPage: quote.perPage,
+    total: quote.total,
+    loading: false,
+    error: null,
+  }
 }

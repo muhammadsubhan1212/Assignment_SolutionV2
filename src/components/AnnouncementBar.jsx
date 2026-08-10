@@ -14,15 +14,15 @@ export default function AnnouncementBar() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ height: 0, opacity: 0 }}
           transition={{ duration: 0.4 }}
-          className="relative bg-neutral-900 px-4 py-2.5 text-center"
+          className="relative bg-ink-950 px-4 py-2.5 text-center"
         >
-          <p className="text-[13px] font-medium text-neutral-300">
+          <p className="text-[13px] font-medium text-ink-200">
             <span className="inline-flex items-center gap-2">
-              <span className="hidden text-neutral-500 sm:inline">—</span>
+              <span className="hidden text-ink-500 sm:inline">—</span>
               New students save 15% on the first project
               <Link
                 to="/order-now"
-                className="font-semibold text-white underline-offset-2 hover:underline"
+                className="font-semibold text-brass-300 underline-offset-2 hover:underline"
               >
                 Claim offer →
               </Link>
@@ -30,7 +30,7 @@ export default function AnnouncementBar() {
           </p>
           <button
             onClick={() => setVisible(false)}
-            className="absolute right-3 top-1/2 hidden -translate-y-1/2 text-neutral-500 transition-colors hover:text-white sm:block"
+            className="absolute right-3 top-1/2 hidden -translate-y-1/2 text-ink-400 transition-colors hover:text-brass-300 sm:block"
             aria-label="Dismiss announcement"
           >
             <X size={14} />

@@ -25,7 +25,7 @@ const NotFoundPage = lazy(() => import('./pages/NotFoundPage'))
 function PageFallback() {
   return (
     <div className="flex min-h-[60vh] items-center justify-center">
-      <div className="h-8 w-8 animate-spin rounded-full border-2 border-neutral-200 border-t-neutral-900" />
+      <div className="h-8 w-8 animate-spin rounded-full border-2 border-mist-200 border-t-ink-950" />
     </div>
   )
 }
@@ -40,8 +40,8 @@ export default function App() {
             duration: 4000,
             style: {
               borderRadius: '12px',
-              background: '#1e293b',
-              color: '#f1f5f9',
+              background: '#152536',
+              color: '#f7f8f7',
               fontSize: '14px',
             },
           }}

@@ -7,6 +7,7 @@ import Accordion from '../components/Accordion'
 import OrderCTA from '../components/OrderCTA'
 import { whyChooseItems } from '../data/home'
 import { getServiceBySlug, allServiceEntries } from '../data/servicesContent'
+import { img, servicePhotos } from '../data/images'
 
 export default function ServiceLandingPage() {
   const { slug } = useParams()
@@ -15,10 +16,10 @@ export default function ServiceLandingPage() {
   if (!service) {
     return (
       <section className="mx-auto max-w-6xl px-5 py-32 text-center sm:px-6 lg:px-8">
-        <p className="text-sm font-bold uppercase tracking-wider text-violet-600">Not found</p>
-        <h1 className="mt-2 font-heading text-3xl font-extrabold text-neutral-900">This service doesn&apos;t exist</h1>
+        <p className="text-sm font-bold uppercase tracking-wider text-brass-600">Not found</p>
+        <h1 className="mt-2 font-heading text-3xl font-extrabold text-ink-950">This service doesn&apos;t exist</h1>
         <div className="mt-7 flex justify-center gap-3">
-          <Link to="/services" className="rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white hover:bg-neutral-800">
+          <Link to="/services" className="rounded-lg bg-ink-950 px-6 py-3 text-sm font-medium text-white hover:bg-ink-800">
             Browse services
           </Link>
         </div>
@@ -35,17 +36,22 @@ export default function ServiceLandingPage() {
       <Seo title={service.seoTitle} description={service.seoDescription} path={`/${service.slug}`} />
 
       {/* Split hero: dark editorial left + calculator right */}
-      <section className="border-b border-neutral-100">
+      <section className="border-b border-mist-200">
         <div className="grid lg:grid-cols-2">
-          <div className="relative overflow-hidden bg-neutral-900">
-            <div className="absolute -left-20 top-10 h-64 w-64 rounded-full bg-violet-600/20 blur-[100px]" />
+          <div className="relative overflow-hidden bg-ink-950">
+            <img
+              src={img.studentWriting}
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover opacity-40"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-ink-950 via-ink-950/90 to-ink-900/70" />
             <div className="relative px-5 pb-14 pt-32 sm:px-8 sm:pt-36 md:px-10 lg:pb-16 xl:pl-[max(2rem,calc((100vw-72rem)/2+2rem))]">
-              <p className="mb-4 text-[12px] font-medium text-neutral-500">
+              <p className="mb-4 text-[12px] font-medium text-white/45">
                 <Link to="/services" className="hover:text-white">
                   Services
                 </Link>
-                <span className="mx-2 text-neutral-700">/</span>
-                <span className="text-neutral-300">{service.title}</span>
+                <span className="mx-2 text-white/25">/</span>
+                <span className="text-white/75">{service.title}</span>
               </p>
               <motion.h1
                 initial={{ opacity: 0, y: 16 }}
@@ -55,24 +61,24 @@ export default function ServiceLandingPage() {
               >
                 {service.hero}
               </motion.h1>
-              <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-neutral-400">{service.intro}</p>
+              <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-white/60">{service.intro}</p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   to="/order-now"
-                  className="inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-neutral-900 transition-colors hover:bg-neutral-100"
+                  className="inline-flex items-center rounded-lg bg-brass-400 px-6 py-3 text-sm font-semibold text-ink-950 transition-colors hover:bg-brass-300"
                 >
                   Start this service
                 </Link>
                 <Link
                   to="/contact-us"
-                  className="inline-flex items-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+                  className="inline-flex items-center rounded-lg border border-white/20 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
                 >
                   Ask a question
                 </Link>
               </div>
             </div>
           </div>
-          <div className="relative bg-[#FAF8F5]">
+          <div className="relative bg-mist-50">
             <div className="px-5 pb-14 pt-14 sm:px-8 md:px-10 lg:pt-32 xl:pr-[max(2rem,calc((100vw-72rem)/2+2rem))]">
               <div className="mx-auto w-full max-w-md lg:mx-0">
                 <PriceCalculator />
@@ -84,37 +90,37 @@ export default function ServiceLandingPage() {
 
       {/* Benefits */}
       <section className="mx-auto max-w-6xl px-5 py-16 sm:px-6 sm:py-20 lg:px-8">
-        <h2 className="text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl">
+        <h2 className="font-heading text-2xl font-semibold tracking-tight text-ink-950 sm:text-3xl">
           Built for {service.title.toLowerCase()}
         </h2>
-        <p className="mt-3 max-w-lg text-[15px] leading-relaxed text-neutral-500">
+        <p className="mt-3 max-w-lg text-[15px] leading-relaxed text-ink-600">
           What students notice first when they work with us on this brief type.
         </p>
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           {service.benefits.map((b) => (
-            <div key={b} className="flex gap-3 rounded-2xl border border-neutral-200/80 bg-white p-6">
-              <Check className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
-              <span className="text-sm leading-relaxed text-neutral-600">{b}</span>
+            <div key={b} className="flex gap-3 border border-mist-200 bg-mist-50/60 p-6">
+              <Check className="mt-0.5 h-5 w-5 shrink-0 text-brass-600" />
+              <span className="text-sm leading-relaxed text-ink-700">{b}</span>
             </div>
           ))}
         </div>
       </section>
 
       {/* Why students stay */}
-      <section className="border-y border-neutral-100 bg-[#faf9f7] py-16 sm:py-20">
+      <section className="border-y border-mist-200 bg-mist-50 py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
-          <h2 className="mb-10 text-center text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl">
+          <h2 className="mb-10 text-center font-heading text-2xl font-semibold tracking-tight text-ink-950 sm:text-3xl">
             Why students stay with the desk
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {whyChooseItems.slice(0, 3).map((item) => (
-              <div key={item.title} className="rounded-2xl border border-neutral-200/70 bg-white p-6">
+              <div key={item.title} className="border border-mist-200 bg-white p-6">
                 <div className="mb-3 flex items-baseline gap-2">
-                  <span className="font-mono text-2xl font-bold text-neutral-900">{item.stat}</span>
-                  <span className="text-[11px] text-neutral-400">{item.statLabel}</span>
+                  <span className="font-heading text-2xl font-bold text-ink-950">{item.stat}</span>
+                  <span className="text-[11px] text-ink-500">{item.statLabel}</span>
                 </div>
-                <h3 className="text-base font-semibold text-neutral-900">{item.title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-neutral-500">{item.body}</p>
+                <h3 className="font-heading text-base font-semibold text-ink-950">{item.title}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-ink-600">{item.body}</p>
               </div>
             ))}
           </div>
@@ -126,26 +132,32 @@ export default function ServiceLandingPage() {
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           {related.length > 0 && (
             <div>
-              <h2 className="mb-6 text-xl font-bold tracking-tight text-neutral-900">Related services</h2>
+              <h2 className="mb-6 font-heading text-xl font-semibold tracking-tight text-ink-950">Related services</h2>
               <div className="space-y-3">
-                {related.map((r) => (
-                  <Link
-                    key={r.slug}
-                    to={`/${r.slug}`}
-                    className="group flex items-center justify-between gap-3 rounded-2xl border border-neutral-200/80 bg-white p-5 transition-all hover:border-neutral-300 hover:shadow-sm"
-                  >
-                    <div>
-                      <h3 className="text-sm font-semibold text-neutral-900">{r.title}</h3>
-                      <p className="mt-0.5 line-clamp-1 text-[13px] text-neutral-500">{r.hero}</p>
-                    </div>
-                    <ArrowUpRight size={16} className="shrink-0 text-neutral-300 transition-colors group-hover:text-neutral-900" />
-                  </Link>
-                ))}
+                {related.map((r, i) => {
+                  const photo = servicePhotos[i % servicePhotos.length]
+                  return (
+                    <Link
+                      key={r.slug}
+                      to={`/${r.slug}`}
+                      className="group flex items-center gap-4 border border-mist-200 bg-white p-3 pr-5 transition-all hover:border-mist-300 hover:bg-mist-50"
+                    >
+                      <div className="relative h-16 w-20 shrink-0 overflow-hidden bg-ink-900">
+                        <img src={photo.src} alt="" loading="lazy" className="img-cover" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="text-sm font-semibold text-ink-950">{r.title}</h3>
+                        <p className="mt-0.5 line-clamp-1 text-[13px] text-ink-600">{r.hero}</p>
+                      </div>
+                      <ArrowUpRight size={16} className="shrink-0 text-ink-300 transition-colors group-hover:text-brass-600" />
+                    </Link>
+                  )
+                })}
               </div>
             </div>
           )}
           <div>
-            <h2 className="mb-4 text-xl font-bold tracking-tight text-neutral-900">Questions about this service</h2>
+            <h2 className="mb-4 font-heading text-xl font-semibold tracking-tight text-ink-950">Questions about this service</h2>
             <Accordion items={service.faqs} />
           </div>
         </div>

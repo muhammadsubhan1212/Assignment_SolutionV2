@@ -1,48 +1,35 @@
 import { delay } from '../utils/helpers';
-
-/**
- * MOCK price matrix — base USD per page.
- * Base ~$9.99/page for undergraduate with 15-day deadline.
- * Prices returned in USD; the frontend converts to local currency.
- */
-const BASE_PRICE = 9.99;
-
-const levelMultiplier = {
-  1: 1,
-  2: 1.25,
-  3: 1.55,
-};
-
-const deadlineMultiplier = {
-  1: 1,
-  2: 1.05,
-  3: 1.1,
-  4: 1.15,
-  5: 1.2,
-  6: 1.3,
-  7: 1.4,
-  8: 1.55,
-  9: 1.75,
-  10: 2,
-  11: 2.35,
-};
-
-function calcPerPage(academicLevelId, deadlineId) {
-  const level = levelMultiplier[Number(academicLevelId)] ?? 1;
-  const urgency = deadlineMultiplier[Number(deadlineId)] ?? 1;
-  return +(BASE_PRICE * level * urgency).toFixed(2);
-}
+import { calcQuote } from '../utils/pricing';
 
 export async function handleMockRequest(config) {
   const method = (config.method || 'get').toLowerCase();
   const url = (config.url || '').replace(/^\//, '');
   const data = typeof config.data === 'string' ? JSON.parse(config.data || '{}') : config.data || {};
 
-  await delay(450);
+  await delay(280);
 
   if (method === 'post' && url === 'get-fare') {
-    const per_page_price = calcPerPage(data.academic_level_id, data.deadline_id);
-    return { status: 200, data: { per_page_price } };
+    const quote = calcQuote({
+      academicLevelId: data.academic_level_id,
+      deadlineId: data.deadline_id,
+      words: data.words,
+      pages: data.pages,
+      paperType: data.paper_type || 'Essay',
+    });
+    return {
+      status: 200,
+      data: {
+        per_page_price: quote.perPage,
+        per_100_words: quote.per100,
+        words: quote.words,
+        pages: quote.pages,
+        total: quote.total,
+        desk_fee: quote.deskFee,
+        writing: quote.writing,
+        urgency_fee: quote.urgencyFee,
+        volume_saved: quote.volumeSaved,
+      },
+    };
   }
 
   if (method === 'post' && url === 'contact-us') {
