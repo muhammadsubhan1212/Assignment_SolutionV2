@@ -23,6 +23,15 @@ export default function LiveChatWidget() {
     if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight
   }, [messages, open, typing])
 
+  useEffect(() => {
+    if (!open) return undefined
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = prev
+    }
+  }, [open])
+
   const send = (e) => {
     e.preventDefault()
     const text = input.trim()
@@ -45,8 +54,8 @@ export default function LiveChatWidget() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1, duration: 0.3 }}
         onClick={() => setOpen((v) => !v)}
-        className="fixed bottom-6 left-6 z-40 hidden h-12 w-12 items-center justify-center bg-ink-950 text-white shadow-xl shadow-ink-950/30 transition-colors hover:bg-ink-800 lg:flex"
-        aria-label="Open live chat"
+        className="fixed bottom-24 left-4 z-[60] flex h-14 w-14 items-center justify-center bg-ink-950 text-white shadow-xl shadow-ink-950/30 transition-colors hover:bg-ink-800 active:scale-95 sm:bottom-6 sm:left-6 sm:h-12 sm:w-12 lg:bottom-6"
+        aria-label={open ? 'Close live chat' : 'Open live chat'}
       >
         <AnimatePresence mode="wait">
           {open ? (
@@ -68,21 +77,29 @@ export default function LiveChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.96 }}
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed bottom-24 left-6 z-40 hidden w-[340px] flex-col overflow-hidden border border-mist-200 bg-white shadow-[0_24px_64px_-16px_rgba(12,22,32,0.28)] lg:flex"
+            className="fixed inset-x-3 bottom-44 z-[60] flex max-h-[min(70vh,520px)] w-auto flex-col overflow-hidden border border-mist-200 bg-white shadow-[0_24px_64px_-16px_rgba(12,22,32,0.28)] sm:inset-x-auto sm:bottom-24 sm:left-6 sm:w-[340px] lg:bottom-24"
           >
             <div className="flex items-center gap-3 bg-ink-950 px-5 py-4">
               <div className="flex h-9 w-9 items-center justify-center bg-white/10">
                 <img src="/logo-mark-white.png" alt="" className="h-5 w-auto" />
               </div>
-              <div>
+              <div className="min-w-0 flex-1">
                 <p className="text-[13px] font-semibold tracking-tight text-white">{brand.name}</p>
                 <p className="flex items-center gap-1.5 text-[11px] text-white/50">
                   <span className="h-1.5 w-1.5 rounded-full bg-brass-400" /> Smart assistant · replies instantly
                 </p>
               </div>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="flex h-8 w-8 items-center justify-center text-white/60 transition-colors hover:text-white sm:hidden"
+                aria-label="Close chat"
+              >
+                <X size={18} />
+              </button>
             </div>
 
-            <div ref={scrollRef} className="flex max-h-80 flex-col gap-3 overflow-y-auto bg-mist-50 px-4 py-4">
+            <div ref={scrollRef} className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto bg-mist-50 px-4 py-4 sm:max-h-80">
               {messages.map((m, i) => (
                 <div key={i} className={`flex ${m.from === 'user' ? 'justify-end' : 'justify-start'}`}>
                   <div
@@ -117,7 +134,7 @@ export default function LiveChatWidget() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Type a message…"
-                className="flex-1 bg-mist-100 px-4 py-2.5 text-[13px] text-ink-800 outline-none placeholder:text-ink-400 focus:ring-2 focus:ring-brass-200"
+                className="min-w-0 flex-1 bg-mist-100 px-4 py-2.5 text-[13px] text-ink-800 outline-none placeholder:text-ink-400 focus:ring-2 focus:ring-brass-200"
               />
               <button
                 type="submit"
