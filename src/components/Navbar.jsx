@@ -255,7 +255,7 @@ function MegaMenu() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 8 }}
       transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-      className="absolute left-1/2 top-full z-50 w-[760px] max-w-[min(760px,calc(100%-3rem))] -translate-x-1/2 pt-3"
+      className="absolute left-1/2 top-full z-50 w-[760px] max-w-[calc(100vw-2rem)] -translate-x-1/2 pt-3"
     >
       <div className="overflow-hidden border border-mist-200 bg-white shadow-[0_24px_64px_-16px_rgba(12,22,32,0.28)]">
         <div className="flex items-center justify-between border-b border-mist-100 bg-mist-50 px-5 py-3">
