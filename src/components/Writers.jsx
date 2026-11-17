@@ -24,32 +24,30 @@ export default function Writers() {
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
           {list.map((w, i) => (
             <motion.article
-              key={w.name || i}
+              key={w.role || i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.55, delay: 0.05 * i }}
-              className="card card-hover flex flex-col p-6"
+              className="card card-hover group flex flex-col overflow-hidden"
             >
-              <div className="flex items-center gap-4">
+              <div className="relative aspect-[16/10] overflow-hidden">
                 <img
                   src={writerPhotos[i % writerPhotos.length]}
-                  alt=""
+                  alt={w.role}
                   loading="lazy"
-                  className="h-16 w-16 shrink-0 rounded-2xl object-cover"
+                  className="img-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="min-w-0">
-                  <h3 className="flex items-center gap-1.5 text-[16px] font-bold text-ink-950">
-                    {w.name}
-                    <BadgeCheck size={16} className="shrink-0 text-brass-500" />
-                  </h3>
-                  <p className="mt-0.5 text-[12.5px] font-semibold text-brass-600">{(w.focus && w.focus[0]) || 'Specialist'}</p>
-                </div>
+                <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-bold text-ink-950 backdrop-blur">
+                  <BadgeCheck size={13} className="text-brass-500" /> Verified
+                </span>
               </div>
-              {w.bio && <p className="mt-4 line-clamp-3 text-[14px] leading-relaxed text-ink-600">{w.bio}</p>}
+              <div className="flex flex-1 flex-col p-6 pt-5">
+              <h3 className="font-heading text-[20px] font-semibold text-ink-950">{w.role}</h3>
+              {w.bio && <p className="mt-3 line-clamp-3 text-[14px] leading-relaxed text-ink-600">{w.bio}</p>}
               {w.focus && (
                 <div className="mt-4 flex flex-wrap gap-1.5">
-                  {w.focus.slice(1, 4).map((f) => (
+                  {w.focus.map((f) => (
                     <span key={f} className="rounded-full bg-mist-100 px-2.5 py-1 text-[11.5px] font-medium text-ink-700">
                       {f}
                     </span>
@@ -61,6 +59,7 @@ export default function Writers() {
                   <Star size={13} className="text-brass-500" fill="currentColor" /> {w.rate} satisfaction
                 </span>
                 <span className="text-ink-500">{w.projects} projects</span>
+              </div>
               </div>
             </motion.article>
           ))}
