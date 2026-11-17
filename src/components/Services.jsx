@@ -8,7 +8,8 @@ import SectionHeading from './SectionHeading'
 const icons = [FileSearch, PenLine, GraduationCap, BookOpen, Briefcase, Megaphone]
 
 export default function Services() {
-  const [lead, ...rest] = premiumServices.slice(0, 6)
+  // 1 featured (spans 2 rows) + 4 cards fills the 3×2 desktop grid and the 2-col tablet grid exactly.
+  const [lead, ...rest] = premiumServices.slice(0, 5)
 
   return (
     <section id="services" className="section-y relative bg-[#fbfaf7]">
