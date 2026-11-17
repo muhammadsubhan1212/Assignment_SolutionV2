@@ -15,11 +15,11 @@ export default function ServiceLandingPage() {
 
   if (!service) {
     return (
-      <section className="mx-auto max-w-6xl px-5 py-32 text-center sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-6xl px-5 pb-32 pt-44 text-center sm:px-6 lg:px-8">
         <p className="text-sm font-bold uppercase tracking-wider text-brass-600">Not found</p>
         <h1 className="mt-2 font-heading text-3xl font-extrabold text-ink-950">This service doesn&apos;t exist</h1>
         <div className="mt-7 flex justify-center gap-3">
-          <Link to="/services" className="rounded-lg bg-ink-950 px-6 py-3 text-sm font-medium text-white hover:bg-ink-800">
+          <Link to="/services" className="rounded-full bg-ink-950 px-6 py-3 text-sm font-medium text-white hover:bg-ink-800">
             Browse services
           </Link>
         </div>
@@ -65,7 +65,7 @@ export default function ServiceLandingPage() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   to="/order-now"
-                  className="inline-flex items-center rounded-lg bg-brass-400 px-6 py-3 text-sm font-semibold text-ink-950 transition-colors hover:bg-brass-300"
+                  className="inline-flex items-center rounded-full bg-brass-400 px-6 py-3 text-sm font-semibold text-ink-950 transition-colors hover:bg-brass-300"
                 >
                   Start this service
                 </Link>
@@ -114,7 +114,7 @@ export default function ServiceLandingPage() {
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {whyChooseItems.slice(0, 3).map((item) => (
-              <div key={item.title} className="border border-mist-200 bg-white p-6">
+              <div key={item.title} className="rounded-2xl border border-mist-200 bg-white p-6">
                 <div className="mb-3 flex items-baseline gap-2">
                   <span className="font-heading text-2xl font-bold text-ink-950">{item.stat}</span>
                   <span className="text-[11px] text-ink-500">{item.statLabel}</span>
@@ -140,7 +140,7 @@ export default function ServiceLandingPage() {
                     <Link
                       key={r.slug}
                       to={`/${r.slug}`}
-                      className="group flex items-center gap-4 border border-mist-200 bg-white p-3 pr-5 transition-all hover:border-mist-300 hover:bg-mist-50"
+                      className="group flex items-center gap-4 rounded-2xl border border-mist-200 bg-white p-3 pr-5 transition-all hover:border-mist-300 hover:bg-mist-50"
                     >
                       <div className="relative h-16 w-20 shrink-0 overflow-hidden bg-ink-900">
                         <img src={photo.src} alt="" loading="lazy" className="img-cover" />

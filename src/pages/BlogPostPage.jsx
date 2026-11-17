@@ -18,7 +18,7 @@ export default function BlogPostPage() {
       <section className="mx-auto max-w-6xl px-5 py-32 text-center sm:px-6 lg:px-8">
         <p className="text-sm font-bold uppercase tracking-wider text-brass-600">Not found</p>
         <h1 className="mt-2 font-heading text-3xl font-extrabold text-ink-950">Article not found</h1>
-        <Link to="/blogs" className="mt-7 inline-block rounded-lg bg-ink-950 px-6 py-3 text-sm font-medium text-white hover:bg-ink-800">
+        <Link to="/blogs" className="mt-7 inline-block rounded-full bg-ink-950 px-6 py-3 text-sm font-medium text-white hover:bg-ink-800">
           Back to blog
         </Link>
       </section>
@@ -72,7 +72,7 @@ export default function BlogPostPage() {
                 <Link
                   key={p.slug}
                   to={`/blogs/${p.slug}`}
-                  className="group overflow-hidden border border-mist-200 bg-white transition-all hover:border-mist-300"
+                  className="group overflow-hidden rounded-2xl border border-mist-200 bg-white transition-all hover:border-mist-300"
                 >
                   <div className="relative aspect-[16/9] overflow-hidden bg-ink-900">
                     <img

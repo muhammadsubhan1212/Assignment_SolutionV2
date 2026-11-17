@@ -90,7 +90,7 @@ export default function AboutPage() {
               className="grid grid-cols-2 gap-3 self-start"
             >
               <div className="space-y-3 pt-8">
-                <div className="relative aspect-[3/4] overflow-hidden">
+                <div className="relative aspect-[3/4] overflow-hidden rounded-[22px]">
                   <img src={mosaic[0]} alt="" loading="lazy" className="img-cover" />
                 </div>
                 <div className="relative aspect-square overflow-hidden">
@@ -101,10 +101,10 @@ export default function AboutPage() {
                 <div className="relative aspect-square overflow-hidden">
                   <img src={mosaic[2]} alt="" loading="lazy" className="img-cover" />
                 </div>
-                <div className="relative aspect-[3/4] overflow-hidden">
+                <div className="relative aspect-[3/4] overflow-hidden rounded-[22px]">
                   <img src={mosaic[3]} alt="" loading="lazy" className="img-cover" />
                 </div>
-                <div className="relative aspect-[4/3] overflow-hidden">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-[22px]">
                   <img src={mosaic[4]} alt="" loading="lazy" className="img-cover" />
                 </div>
               </div>

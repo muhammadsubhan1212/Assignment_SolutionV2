@@ -52,6 +52,7 @@ export default function OrderNowPage() {
       referenceStyle: 'Harvard',
       paperTopic: '',
       instructions: '',
+      website: '',
     },
   })
 
@@ -67,6 +68,8 @@ export default function OrderNowPage() {
     try {
       const result = await submitOrder({
         ...values,
+        academicLevelLabel: academicLevels.find((l) => l.id === Number(values.academicLevel))?.label,
+        deadlineLabel: deadlines.find((d) => d.id === Number(values.deadline))?.label,
         pages: values.words / WORDS_PER_PAGE,
         amountUSD: total.toFixed(2),
         currency: currencyCode,
@@ -75,10 +78,9 @@ export default function OrderNowPage() {
         toast.error(result.message)
         return
       }
-      toast.success(result.message)
+      toast.success(result.message, { duration: 7000 })
       reset()
-    } catch {
-      toast.error('Unable to place order. Please try again.')
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     } finally {
       setSubmitting(false)
     }
@@ -99,16 +101,19 @@ export default function OrderNowPage() {
         image={img.orderLaptop2}
       />
 
-      <div className="bg-mist-50">
-        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <div className="bg-[#fbfaf7]">
+        <div className="container-x py-12 sm:py-16">
           <form onSubmit={handleSubmit(onSubmit)} className="grid gap-8 lg:grid-cols-[1.6fr_1fr] lg:items-start lg:gap-10" noValidate>
             {/* Form */}
-            <div className="space-y-8">
-              <fieldset className="border border-mist-200 bg-white p-6 sm:p-8">
-                <legend className="px-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-brass-600">
+            <div className="space-y-6">
+              <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+                <input tabIndex={-1} autoComplete="off" {...register('website')} />
+              </div>
+              <fieldset className="card p-5 sm:p-8">
+                <legend className="float-left mb-2 w-full font-heading text-xl font-semibold text-ink-950">
                   Assignment details
                 </legend>
-                <div className="mt-4 grid gap-5">
+                <div className="clear-both grid gap-5 pt-2">
                   <div className="grid gap-5 sm:grid-cols-2">
                     <Field label="Paper type" htmlFor="paperType">
                       <Select id="paperType" {...register('paperType')}>
@@ -175,11 +180,11 @@ export default function OrderNowPage() {
                 </div>
               </fieldset>
 
-              <fieldset className="border border-mist-200 bg-white p-6 sm:p-8">
-                <legend className="px-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-brass-600">
+              <fieldset className="card p-5 sm:p-8">
+                <legend className="float-left mb-2 w-full font-heading text-xl font-semibold text-ink-950">
                   Your contact details
                 </legend>
-                <div className="mt-4 grid gap-5">
+                <div className="clear-both grid gap-5 pt-2">
                   <div className="grid gap-5 sm:grid-cols-2">
                     <Field label="Full name" error={errors.name?.message} htmlFor="name">
                       <Input id="name" invalid={!!errors.name} {...register('name', { required: 'Name is required' })} />
@@ -214,7 +219,7 @@ export default function OrderNowPage() {
 
             {/* Sticky summary */}
             <aside className="lg:sticky lg:top-24">
-              <div className="overflow-hidden border border-mist-200 bg-ink-950 shadow-[0_24px_60px_-24px_rgba(21,37,54,0.35)]">
+              <div className="overflow-hidden rounded-[24px] bg-ink-950 shadow-[0_30px_70px_-24px_rgba(21,37,54,0.55)]">
                 <div className="border-b border-white/10 px-6 py-5">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-brass-300">Quote</p>
                   <h2 className="mt-1 font-heading text-lg font-bold tracking-tight text-white">Order summary</h2>
@@ -249,7 +254,7 @@ export default function OrderNowPage() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="group inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brass-400 px-6 py-3.5 text-sm font-semibold text-ink-950 transition-colors hover:bg-brass-300 disabled:opacity-60"
+                    className="btn btn-brass btn-lg group w-full disabled:opacity-60"
                   >
                     {submitting ? 'Placing order…' : 'Place order'}
                     {!submitting && <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />}

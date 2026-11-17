@@ -1,84 +1,88 @@
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react'
+import { useRef } from 'react'
+import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { Star, Quote, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
 import { reviews } from '../data/home'
-import { img } from '../data/images'
+import SectionHeading from './SectionHeading'
+
+const tints = ['#e0ccad', '#c5d3de', '#ccae7f', '#dde3df', '#f0e6d6', '#9bb3c4']
 
 export default function Testimonials() {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 })
-  const [index, setIndex] = useState(0)
-  const review = reviews[index]
-
-  const prev = () => setIndex((i) => (i - 1 + reviews.length) % reviews.length)
-  const next = () => setIndex((i) => (i + 1) % reviews.length)
+  const track = useRef(null)
+  const scroll = (dir) => {
+    const el = track.current
+    if (!el) return
+    const card = el.querySelector('article')
+    el.scrollBy({ left: dir * ((card?.offsetWidth || 360) + 20), behavior: 'smooth' })
+  }
 
   return (
-    <section ref={ref} className="relative isolate overflow-hidden bg-ink-950 py-24 sm:py-32">
-      <img
-        src={img.library2}
-        alt=""
-        className="absolute inset-0 img-cover opacity-30"
-        loading="lazy"
+    <section className="section-y relative overflow-hidden bg-ink-950">
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{ background: 'radial-gradient(ellipse 50% 50% at 10% 100%, rgba(184,149,106,0.16), transparent 60%)' }}
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-ink-950 via-ink-950/92 to-ink-950/70" />
-
-      <div className="relative mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7 }}
-          >
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-brass-300">Reviews</p>
-            <h2 className="mt-3 font-heading text-[clamp(2rem,4vw,3.1rem)] font-semibold text-white">
-              Voices from campuses worldwide
-            </h2>
-            <div className="mt-8 flex gap-2">
-              <button
-                type="button"
-                onClick={prev}
-                aria-label="Previous review"
-                className="flex h-11 w-11 items-center justify-center border border-white/20 text-white transition-colors hover:border-brass-400 hover:text-brass-300"
-              >
-                <ChevronLeft size={18} />
-              </button>
-              <button
-                type="button"
-                onClick={next}
-                aria-label="Next review"
-                className="flex h-11 w-11 items-center justify-center border border-white/20 text-white transition-colors hover:border-brass-400 hover:text-brass-300"
-              >
-                <ChevronRight size={18} />
-              </button>
-            </div>
-          </motion.div>
-
-          <AnimatePresence mode="wait">
-            <motion.blockquote
-              key={review.name}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.4 }}
-              className="relative"
-            >
-              <div className="mb-5 flex gap-1 text-brass-400">
+      <div className="container-x relative">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <SectionHeading dark eyebrow="Reviews" title="Voices from campuses worldwide">
+            <div className="mt-6 flex items-center gap-3">
+              <div className="flex gap-0.5 text-brass-300">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} size={16} fill="currentColor" />
+                  <Star key={i} size={18} fill="currentColor" />
                 ))}
               </div>
-              <p className="font-heading text-[clamp(1.35rem,2.8vw,2rem)] font-medium leading-snug text-white">
-                “{review.quote}”
-              </p>
-              <footer className="mt-8">
-                <p className="text-[15px] font-semibold text-white">{review.name}</p>
-                <p className="mt-1 text-[13px] text-white/55">
-                  {review.role} · {review.city}
-                </p>
+              <span className="text-[14px] font-semibold text-white">4.9 / 5</span>
+              <span className="text-[13px] text-white/50">from verified orders</span>
+            </div>
+          </SectionHeading>
+          <div className="flex items-center gap-2">
+            <button type="button" onClick={() => scroll(-1)} aria-label="Previous reviews" className="flex h-12 w-12 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:border-brass-400 hover:text-brass-300">
+              <ChevronLeft size={20} />
+            </button>
+            <button type="button" onClick={() => scroll(1)} aria-label="Next reviews" className="flex h-12 w-12 items-center justify-center rounded-full border border-white/15 text-white transition-colors hover:border-brass-400 hover:text-brass-300">
+              <ChevronRight size={20} />
+            </button>
+            <Link to="/reviews" className="btn btn-ghost-light ml-2 hidden sm:inline-flex">
+              All reviews <ArrowRight size={15} />
+            </Link>
+          </div>
+        </div>
+
+        <div
+          ref={track}
+          className="scrollbar-hide -mx-4 mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-2 sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0"
+        >
+          {reviews.map((r, i) => (
+            <motion.article
+              key={r.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55, delay: Math.min(i, 3) * 0.07 }}
+              className="flex w-[85%] shrink-0 snap-start flex-col rounded-[22px] border border-white/10 bg-white/[0.05] p-6 backdrop-blur sm:w-[360px] sm:p-7"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex gap-0.5 text-brass-300">
+                  {Array.from({ length: 5 }).map((_, k) => (
+                    <Star key={k} size={14} fill="currentColor" />
+                  ))}
+                </div>
+                <Quote size={26} className="text-white/15" />
+              </div>
+              <p className="mt-5 text-[15.5px] leading-relaxed text-white/85">“{r.quote}”</p>
+              <footer className="mt-auto flex items-center gap-3 pt-7">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full text-[13px] font-bold text-ink-950" style={{ background: tints[i % tints.length] }}>
+                  {r.initials || r.name.slice(0, 2)}
+                </span>
+                <div>
+                  <p className="text-[14px] font-semibold text-white">{r.name}</p>
+                  <p className="text-[12.5px] text-white/50">
+                    {r.role} · {r.city}
+                  </p>
+                </div>
               </footer>
-            </motion.blockquote>
-          </AnimatePresence>
+            </motion.article>
+          ))}
         </div>
       </div>
     </section>

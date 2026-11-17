@@ -20,7 +20,7 @@ export default function OrderCTA({
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="relative overflow-hidden bg-ink-950 px-8 py-12 sm:px-12 sm:py-14"
+          className="relative overflow-hidden rounded-[26px] bg-ink-950 px-6 py-12 sm:px-12 sm:py-14"
         >
           <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-brass-400/15 blur-[90px]" />
           <div className="relative flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
@@ -31,7 +31,7 @@ export default function OrderCTA({
             <div className="flex shrink-0 flex-wrap gap-3">
               <Link
                 to={primaryTo}
-                className="group inline-flex items-center gap-2 rounded-lg bg-brass-400 px-6 py-3.5 text-sm font-semibold text-ink-950 transition-colors hover:bg-brass-300"
+                className="group inline-flex items-center gap-2 rounded-full bg-brass-400 px-6 py-3.5 text-sm font-semibold text-ink-950 transition-colors hover:bg-brass-300"
               >
                 {primaryLabel}
                 <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-0.5" />

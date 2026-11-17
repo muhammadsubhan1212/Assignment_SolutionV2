@@ -57,7 +57,7 @@ export default function LoginPage() {
 
         {/* Form panel */}
         <div className="flex flex-1 flex-col justify-center bg-mist-50 px-8 py-14 sm:px-12 lg:w-1/2 lg:px-16 lg:py-24">
-          <div className="mx-auto w-full max-w-md border border-mist-200 bg-white p-6 sm:p-8">
+          <div className="mx-auto w-full max-w-md rounded-2xl border border-mist-200 bg-white p-6 sm:p-8">
             {isAuthenticated ? (
               <div className="space-y-4 text-center">
                 <div className="mx-auto flex h-12 w-12 items-center justify-center bg-ink-950 text-sm font-bold text-brass-300">
@@ -66,7 +66,7 @@ export default function LoginPage() {
                 <h2 className="font-heading text-xl font-semibold tracking-tight text-ink-950">You&apos;re signed in</h2>
                 <p className="text-[14px] text-ink-600">Welcome back, {user?.name || user?.email}.</p>
                 <div className="flex justify-center gap-2 pt-1">
-                  <Link to="/order-now" className="rounded-lg bg-ink-950 px-5 py-2.5 text-sm font-medium text-white hover:bg-ink-800">
+                  <Link to="/order-now" className="rounded-full bg-ink-950 px-5 py-2.5 text-sm font-medium text-white hover:bg-ink-800">
                     Place an order
                   </Link>
                   <button onClick={logout} className="rounded-lg border border-mist-300 px-5 py-2.5 text-sm font-medium text-ink-700 hover:border-ink-400">
@@ -106,7 +106,7 @@ export default function LoginPage() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="w-full rounded-lg bg-ink-950 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-ink-800 disabled:opacity-60"
+                    className="w-full rounded-full bg-ink-950 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-ink-800 disabled:opacity-60"
                   >
                     {submitting ? 'Signing in…' : 'Sign in'}
                   </button>

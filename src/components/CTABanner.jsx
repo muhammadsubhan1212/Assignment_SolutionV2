@@ -1,48 +1,46 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { useInView } from 'react-intersection-observer'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, MessageCircle } from 'lucide-react'
 import { img } from '../data/images'
 import { brand } from '../data/brand'
 
 export default function CTABanner() {
-  const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true })
-
   return (
-    <section ref={ref} className="relative isolate overflow-hidden py-28 sm:py-36">
-      <img src={img.studentRelaxing} alt="" className="absolute inset-0 img-cover" loading="lazy" />
-      <div className="absolute inset-0 bg-ink-950/78" />
-
-      <div className="relative z-10 mx-auto max-w-4xl px-5 text-center sm:px-6 lg:px-8">
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="font-heading text-[clamp(1.1rem,2.5vw,1.4rem)] font-medium text-brass-300"
-        >
-          {brand.name}
-        </motion.p>
-        <motion.h2
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.75, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-4 font-heading text-[clamp(2.4rem,6vw,4.5rem)] font-semibold leading-[1.05] text-white"
-        >
-          Clear writing. Confident grades.
-        </motion.h2>
+    <section className="bg-white pb-16 sm:pb-24">
+      <div className="container-x">
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.22 }}
-          className="mt-10"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="relative isolate overflow-hidden rounded-[30px] bg-ink-950 px-6 py-14 sm:px-12 sm:py-20 lg:px-16"
         >
-          <Link
-            to="/order-now"
-            className="group inline-flex items-center gap-2.5 bg-brass-400 px-8 py-4 text-[14px] font-semibold text-ink-950 transition-colors hover:bg-brass-300"
-          >
-            Place an order
-            <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
-          </Link>
+          <img src={img.studentRelaxing} alt="" className="absolute inset-0 -z-10 img-cover opacity-30" loading="lazy" />
+          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink-950 via-ink-950/90 to-ink-950/40" />
+          <div
+            className="absolute inset-0 -z-10"
+            style={{ background: 'radial-gradient(ellipse 50% 70% at 100% 100%, rgba(184,149,106,0.35), transparent 60%)' }}
+          />
+
+          <div className="grid items-center gap-10 lg:grid-cols-[1.3fr_auto]">
+            <div className="max-w-2xl">
+              <p className="eyebrow eyebrow-light">{brand.name}</p>
+              <h2 className="mt-4 font-heading text-[clamp(2.1rem,5vw,3.75rem)] font-semibold leading-[1.04] tracking-[-0.03em] text-white">
+                Clear writing. <span className="italic text-brass-300">Confident grades.</span>
+              </h2>
+              <p className="mt-5 max-w-lg text-[16px] leading-relaxed text-white/65">
+                Share your brief in two minutes. New students save 15% on their first project.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+              <Link to="/order-now" className="btn btn-brass btn-lg group">
+                Place an order <ArrowRight size={17} className="transition-transform group-hover:translate-x-0.5" />
+              </Link>
+              <a href={`https://wa.me/${brand.whatsapp}`} target="_blank" rel="noreferrer" className="btn btn-ghost-light btn-lg">
+                <MessageCircle size={17} /> Chat on WhatsApp
+              </a>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

@@ -1,71 +1,86 @@
 import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
+import { Users, ShieldCheck, Timer, MessagesSquare, RefreshCw, Star } from 'lucide-react'
 import { whyChooseItems } from '../data/home'
 import { whyPhotos, img } from '../data/images'
+import SectionHeading from './SectionHeading'
+
+const icons = [Users, ShieldCheck, Timer, MessagesSquare, RefreshCw]
 
 export default function WhyChooseUs() {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 })
+  const items = whyChooseItems.slice(0, 4)
 
   return (
-    <section ref={ref} className="bg-mist-50 py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-brass-600">Why us</p>
-            <h2 className="mt-3 font-heading text-[clamp(2rem,4vw,3.25rem)] font-semibold text-ink-950">
-              Built for students who refuse generic help
-            </h2>
-            <p className="mt-4 max-w-lg text-[15.5px] leading-relaxed text-ink-600">
-              Every engagement is paired, researched, and reviewed — so the work arriving in your inbox feels like it belongs to your course.
-            </p>
-
-            <div className="mt-10 space-y-8">
-              {whyChooseItems.slice(0, 5).map((item, i) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.55, delay: 0.08 * i }}
-                  className="border-l-2 border-brass-400 pl-5"
-                >
-                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                    <h3 className="font-heading text-xl font-semibold text-ink-950">{item.title}</h3>
-                    <span className="text-[12px] font-bold uppercase tracking-wider text-brass-600">
-                      {item.stat} {item.statLabel}
-                    </span>
-                  </div>
-                  <p className="mt-2 text-[14.5px] leading-relaxed text-ink-600">{item.body}</p>
-                </motion.div>
-              ))}
+    <section className="section-y bg-white">
+      <div className="container-x grid items-center gap-14 lg:grid-cols-2 lg:gap-16">
+        {/* Visual */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="relative order-2 lg:order-1"
+        >
+          <div className="grid grid-cols-5 gap-3 sm:gap-4">
+            <div className="col-span-3 overflow-hidden rounded-[22px]">
+              <img src={whyPhotos[0] || img.studentConsulting} alt="Student working with an academic specialist" loading="lazy" className="aspect-[3/4] img-cover" />
+            </div>
+            <div className="col-span-2 flex flex-col gap-3 pt-10 sm:gap-4">
+              <div className="overflow-hidden rounded-[22px]">
+                <img src={whyPhotos[2] || img.editorDocs} alt="" loading="lazy" className="aspect-square img-cover" />
+              </div>
+              <div className="overflow-hidden rounded-[22px]">
+                <img src={img.studentConsulting2} alt="" loading="lazy" className="aspect-[4/5] img-cover" />
+              </div>
             </div>
           </div>
+          <div className="absolute -bottom-6 left-4 right-4 mx-auto flex max-w-sm items-center gap-4 rounded-2xl border border-mist-200 bg-white p-4 shadow-[var(--shadow-lift)] sm:left-8 sm:right-auto">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-ink-950 font-heading text-lg font-semibold text-brass-300">4.9</span>
+            <div>
+              <div className="flex gap-0.5 text-brass-500">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} size={13} fill="currentColor" />
+                ))}
+              </div>
+              <p className="mt-1 text-[13px] font-semibold text-ink-900">Average rating from verified students</p>
+            </div>
+          </div>
+        </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="grid grid-cols-2 gap-3 self-start"
-          >
-            <div className="space-y-3 pt-8">
-              <div className="relative aspect-[3/4] overflow-hidden">
-                <img src={whyPhotos[0]} alt="" loading="lazy" className="img-cover" />
-              </div>
-              <div className="relative aspect-square overflow-hidden">
-                <img src={whyPhotos[1]} alt="" loading="lazy" className="img-cover" />
-              </div>
-            </div>
-            <div className="space-y-3">
-              <div className="relative aspect-square overflow-hidden">
-                <img src={whyPhotos[2]} alt="" loading="lazy" className="img-cover" />
-              </div>
-              <div className="relative aspect-[3/4] overflow-hidden">
-                <img src={whyPhotos[3]} alt="" loading="lazy" className="img-cover" />
-              </div>
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <img src={img.studentConsulting2} alt="" loading="lazy" className="img-cover" />
-              </div>
-            </div>
-          </motion.div>
+        {/* Copy */}
+        <div className="order-1 lg:order-2">
+          <SectionHeading
+            eyebrow="Why students choose us"
+            title="Built for students who refuse generic help"
+            intro="Every engagement is paired, researched and reviewed — so the work arriving in your inbox feels like it belongs to your course."
+          />
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-2">
+            {items.map((item, i) => {
+              const Icon = icons[i]
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.55, delay: 0.07 * i }}
+                  className="rounded-2xl border border-mist-200/80 bg-[#fbfaf7] p-5"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="icon-chip h-10 w-10">
+                      <Icon size={18} strokeWidth={1.8} />
+                    </span>
+                    <span className="text-right">
+                      <span className="block font-heading text-xl font-semibold text-ink-950">{item.stat}</span>
+                      <span className="block text-[10.5px] font-semibold uppercase tracking-wider text-ink-400">{item.statLabel}</span>
+                    </span>
+                  </div>
+                  <h3 className="mt-4 text-[16px] font-bold text-ink-950">{item.title}</h3>
+                  <p className="mt-1.5 text-[13.5px] leading-relaxed text-ink-600">{item.body}</p>
+                </motion.div>
+              )
+            })}
+          </div>
         </div>
       </div>
     </section>

@@ -1,57 +1,30 @@
-import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
-import { atmosphereStrip } from '../data/images'
+import { BadgeCheck, ShieldCheck, Clock, Globe2, RefreshCw, Headphones, BookMarked, GraduationCap } from 'lucide-react'
 
 const trustItems = [
-  'Subject-matched writers',
-  'Originality checked',
-  'On-time delivery',
-  'Local-currency quotes',
-  'Unlimited revisions',
-  '24/7 desk support',
-  'APA · MLA · Harvard · Chicago',
-  'UK · USA · AU · CA',
+  { icon: GraduationCap, label: 'Subject-matched writers' },
+  { icon: ShieldCheck, label: 'Originality checked' },
+  { icon: Clock, label: 'On-time delivery' },
+  { icon: Globe2, label: 'Local-currency quotes' },
+  { icon: RefreshCw, label: 'Free revisions' },
+  { icon: Headphones, label: '24/7 desk support' },
+  { icon: BookMarked, label: 'APA · MLA · Harvard · Chicago' },
+  { icon: BadgeCheck, label: '100% confidential' },
 ]
 
 export default function TrustIndicators() {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.15 })
-
   return (
-    <section ref={ref} className="relative w-full max-w-full overflow-x-hidden bg-mist-50">
-      <div className="border-y border-mist-200/80 bg-white/70 backdrop-blur-sm">
-        <div className="max-w-full overflow-x-hidden py-4">
-          <div className="trust-ticker flex w-max gap-10 whitespace-nowrap px-6">
-            {[...trustItems, ...trustItems].map((item, i) => (
-              <span key={`${item}-${i}`} className="flex items-center gap-10 text-[12px] font-semibold uppercase tracking-[0.18em] text-ink-700">
-                {item}
-                <span className="h-1 w-1 rounded-full bg-brass-400" aria-hidden />
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className="mx-auto max-w-6xl px-5 py-10 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6 lg:gap-3"
-        >
-          {atmosphereStrip.map((src, i) => (
-            <div
-              key={src}
-              className={`relative overflow-hidden ${i === 0 || i === 5 ? 'aspect-[4/5]' : 'aspect-square'} ${i > 3 ? 'hidden sm:block' : ''}`}
-            >
-              <img
-                src={src}
-                alt=""
-                loading="lazy"
-                className="img-cover transition-transform duration-700 hover:scale-105"
-              />
-            </div>
+    <section aria-label="Why students trust us" className="relative w-full overflow-hidden border-b border-mist-200/70 bg-white">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent sm:w-32" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent sm:w-32" />
+      <div className="py-5">
+        <div className="trust-ticker flex w-max gap-12 whitespace-nowrap px-6">
+          {[...trustItems, ...trustItems].map(({ icon: Icon, label }, i) => (
+            <span key={`${label}-${i}`} className="flex items-center gap-2.5 text-[13.5px] font-semibold text-ink-700" aria-hidden={i >= trustItems.length}>
+              <Icon size={17} className="text-brass-500" strokeWidth={1.8} />
+              {label}
+            </span>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   )

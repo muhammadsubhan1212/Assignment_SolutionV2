@@ -86,7 +86,7 @@ export default function BlogsPage() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.45, delay: i * 0.06 }}
                   >
-                    <Link to={`/blogs/${post.slug}`} className="group block overflow-hidden border border-mist-200 bg-white">
+                    <Link to={`/blogs/${post.slug}`} className="group block overflow-hidden rounded-2xl border border-mist-200 bg-white">
                       <div className="relative aspect-[16/9] overflow-hidden bg-ink-900">
                         <img
                           src={photo}

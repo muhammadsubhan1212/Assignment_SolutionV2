@@ -1,64 +1,68 @@
 import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
+import { BadgeCheck, Star } from 'lucide-react'
 import { writers } from '../data/home'
-import { writerPhotos, img } from '../data/images'
+import { writerPhotos } from '../data/images'
+import SectionHeading from './SectionHeading'
 
 export default function Writers() {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 })
   const list = (writers || []).slice(0, 6)
 
   return (
-    <section ref={ref} className="bg-mist-100/60 py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
+    <section className="section-y bg-white">
+      <div className="container-x">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-xl">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-brass-600">Our desk</p>
-            <h2 className="mt-3 font-heading text-[clamp(2rem,4vw,3.25rem)] font-semibold text-ink-950">
-              Specialists who live in the literature
-            </h2>
-          </div>
-          <p className="max-w-sm text-[14.5px] leading-relaxed text-ink-600">
-            A collaborative editorial culture — researchers, editors, and career writers working as one desk.
+          <SectionHeading
+            eyebrow="Meet the desk"
+            title="Specialists who live in the literature"
+            intro="Researchers, editors and career writers working as one desk — each matched to your subject."
+          />
+          <p className="flex items-center gap-2 text-[13.5px] font-medium text-ink-600">
+            <BadgeCheck size={18} className="text-emerald-600" /> 300+ vetted, degree-holding writers
           </p>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="mt-12 relative aspect-[21/9] overflow-hidden"
-        >
-          <img src={img.writers} alt="Writers collaborating around a conference table" loading="lazy" className="img-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink-950/50 to-transparent" />
-        </motion.div>
-
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
           {list.map((w, i) => (
-            <motion.div
+            <motion.article
               key={w.name || i}
               initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.55, delay: 0.05 * i }}
-              className="group overflow-hidden bg-white"
+              className="card card-hover flex flex-col p-6"
             >
-              <div className="relative aspect-[5/4] overflow-hidden">
+              <div className="flex items-center gap-4">
                 <img
                   src={writerPhotos[i % writerPhotos.length]}
                   alt=""
                   loading="lazy"
-                  className="img-cover transition-transform duration-700 group-hover:scale-105"
+                  className="h-16 w-16 shrink-0 rounded-2xl object-cover"
                 />
+                <div className="min-w-0">
+                  <h3 className="flex items-center gap-1.5 text-[16px] font-bold text-ink-950">
+                    {w.name}
+                    <BadgeCheck size={16} className="shrink-0 text-brass-500" />
+                  </h3>
+                  <p className="mt-0.5 text-[12.5px] font-semibold text-brass-600">{(w.focus && w.focus[0]) || 'Specialist'}</p>
+                </div>
               </div>
-              <div className="p-5">
-                <h3 className="font-heading text-lg font-semibold text-ink-950">{w.name}</h3>
-                <p className="mt-1 text-[12px] font-semibold uppercase tracking-[0.12em] text-brass-600">
-                  {(w.focus && w.focus[0]) || 'Specialist'}
-                </p>
-                {w.bio && (
-                  <p className="mt-3 line-clamp-3 text-[13.5px] leading-relaxed text-ink-600">{w.bio}</p>
-                )}
+              {w.bio && <p className="mt-4 line-clamp-3 text-[14px] leading-relaxed text-ink-600">{w.bio}</p>}
+              {w.focus && (
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {w.focus.slice(1, 4).map((f) => (
+                    <span key={f} className="rounded-full bg-mist-100 px-2.5 py-1 text-[11.5px] font-medium text-ink-700">
+                      {f}
+                    </span>
+                  ))}
+                </div>
+              )}
+              <div className="mt-auto flex items-center justify-between border-t border-mist-100 pt-4 text-[12.5px]">
+                <span className="flex items-center gap-1 font-semibold text-ink-900">
+                  <Star size={13} className="text-brass-500" fill="currentColor" /> {w.rate} satisfaction
+                </span>
+                <span className="text-ink-500">{w.projects} projects</span>
               </div>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
       </div>

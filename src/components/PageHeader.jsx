@@ -15,17 +15,17 @@ export default function PageHeader({
 
   return (
     <section className="relative isolate overflow-hidden bg-ink-950">
-      <img src={image} alt="" className="absolute inset-0 img-cover opacity-55" />
+      <img src={image} alt="" className="absolute inset-0 img-cover opacity-40" />
       <div className="absolute inset-0 bg-gradient-to-r from-ink-950 via-ink-950/88 to-ink-950/55" />
-      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-mist-50 to-transparent" />
+      <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse 60% 70% at 100% 0%, rgba(184,149,106,0.22), transparent 60%)' }} />
 
-      <div className="relative mx-auto max-w-6xl px-5 pb-16 pt-32 sm:px-6 sm:pb-20 sm:pt-36 lg:px-8">
+      <div className="container-x relative pb-14 pt-36 sm:pb-20 sm:pt-44">
         <div className={centered ? 'mx-auto max-w-2xl text-center' : 'max-w-3xl'}>
           <motion.nav
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className={`flex items-center gap-1.5 text-[12px] font-medium text-white/50 ${centered ? 'justify-center' : ''}`}
+            className={`inline-flex flex-wrap items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-[12px] font-medium text-white/55 backdrop-blur ${centered ? 'justify-center' : ''}`}
             aria-label="Breadcrumb"
           >
             <Link to="/" className="transition-colors hover:text-white">
@@ -50,7 +50,7 @@ export default function PageHeader({
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.05 }}
-              className={`mt-6 text-[11px] font-semibold uppercase tracking-[0.2em] text-brass-300 ${centered ? 'text-center' : ''}`}
+              className={`eyebrow eyebrow-light mt-7 ${centered ? 'justify-center' : ''}`}
             >
               {eyebrow}
             </motion.p>
@@ -60,7 +60,7 @@ export default function PageHeader({
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-4 font-heading text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl lg:text-[3.5rem]"
+            className="mt-4 font-heading text-[clamp(2.25rem,5.5vw,3.75rem)] font-semibold leading-[1.04] tracking-[-0.03em] text-white text-balance"
           >
             {title}
           </motion.h1>

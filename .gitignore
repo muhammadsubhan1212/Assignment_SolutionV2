@@ -22,3 +22,18 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Zanderio isolated audit artifacts (secrets / browser profile / captures)
+_audit_zanderio/.chrome-audit-profile/
+_audit_zanderio/runs/
+_audit_zanderio/network-capture.json
+_audit_zanderio/bootstrap_response*.json
+_audit_zanderio/bootstrap_headers*.json
+_audit_zanderio/loader.js
+_audit_zanderio/headers.txt
+_audit_zanderio/bait-exfil-check.json
+
+# Local secrets (SMTP app password)
+.env
+.env.local
+.env.*.local

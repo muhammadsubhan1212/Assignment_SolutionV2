@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { img } from '../data/images'
 
 const stats = [
   { value: 50000, suffix: '+', label: 'Students supported' },
   { value: 98, suffix: '%', label: 'On-time delivery' },
-  { value: 4.9, suffix: '', label: 'Average rating', decimals: 1 },
+  { value: 4.9, suffix: '/5', label: 'Average rating', decimals: 1 },
   { value: 120, suffix: '+', label: 'Universities reached' },
 ]
 
@@ -32,34 +30,27 @@ function useCountUp(target, active, decimals = 0) {
 function Stat({ value, suffix, label, decimals = 0, active }) {
   const n = useCountUp(value, active, decimals)
   return (
-    <div>
-      <p className="font-heading text-4xl font-semibold text-white sm:text-5xl">
+    <div className="px-2 py-6 text-center sm:py-8">
+      <p className="font-heading text-[clamp(2.2rem,4.5vw,3.25rem)] font-semibold tabular-nums leading-none text-ink-950">
         {decimals ? n.toFixed(decimals) : Math.round(n).toLocaleString()}
-        {suffix}
+        <span className="text-brass-500">{suffix}</span>
       </p>
-      <p className="mt-2 text-[13px] font-medium uppercase tracking-[0.14em] text-white/55">{label}</p>
+      <p className="mt-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-ink-500">{label}</p>
     </div>
   )
 }
 
 export default function Statistics() {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.25 })
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 })
 
   return (
-    <section ref={ref} className="relative isolate overflow-hidden py-24 sm:py-28">
-      <img src={img.library} alt="" className="absolute inset-0 img-cover" loading="lazy" />
-      <div className="absolute inset-0 bg-ink-950/82" />
-      <div className="relative mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4"
-        >
+    <section ref={ref} className="bg-white pb-6 pt-2 sm:pb-10">
+      <div className="container-x">
+        <div className="grid grid-cols-2 divide-mist-200 rounded-[26px] border border-mist-200 bg-gradient-to-b from-brass-50/60 to-white lg:grid-cols-4 lg:divide-x [&>*:nth-child(-n+2)]:border-b [&>*:nth-child(-n+2)]:border-mist-200 lg:[&>*:nth-child(-n+2)]:border-b-0 [&>*:nth-child(odd)]:border-r [&>*:nth-child(odd)]:border-mist-200 lg:[&>*:nth-child(odd)]:border-r-0">
           {stats.map((s) => (
             <Stat key={s.label} {...s} active={inView} />
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   )

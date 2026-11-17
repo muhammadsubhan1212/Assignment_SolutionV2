@@ -22,7 +22,7 @@ export default function PriceCalculator({ className = '' }) {
   const showUsdNote = currencyCode !== 'USD'
 
   const fieldClass =
-    'w-full appearance-none rounded-lg border border-mist-200 bg-mist-50 px-3.5 py-2.5 text-sm text-ink-800 outline-none transition-all duration-200 focus:border-brass-400 focus:ring-2 focus:ring-brass-100 cursor-pointer'
+    'w-full appearance-none rounded-xl border border-mist-200 bg-[#fbfaf7] px-3.5 py-3 text-sm text-ink-800 outline-none transition-all duration-200 focus:border-brass-400 focus:ring-2 focus:ring-brass-100 cursor-pointer'
 
   const switchUnit = (next) => {
     if (next === unit) return
@@ -36,7 +36,7 @@ export default function PriceCalculator({ className = '' }) {
 
   return (
     <div
-      className={`relative overflow-hidden border border-mist-200 bg-white p-6 shadow-[0_24px_64px_-24px_rgba(12,22,32,0.18)] sm:p-7 ${className}`}
+      className={`relative rounded-[24px] border border-mist-200 bg-white p-5 shadow-[var(--shadow-lift)] sm:p-7 ${className}`}
     >
       <div className="mb-6 flex items-start justify-between gap-3">
         <div>
@@ -51,7 +51,7 @@ export default function PriceCalculator({ className = '' }) {
         <div className="relative shrink-0">
           <button
             type="button"
-            className="inline-flex items-center gap-1 border border-mist-200 px-2.5 py-1 text-[11px] font-semibold text-ink-600 transition-colors hover:bg-mist-50"
+            className="inline-flex items-center gap-1 rounded-full border border-mist-200 px-2.5 py-1 text-[11px] font-semibold text-ink-600 transition-colors hover:bg-mist-50"
             onMouseEnter={() => setShowHint(true)}
             onMouseLeave={() => setShowHint(false)}
             onFocus={() => setShowHint(true)}
@@ -60,7 +60,7 @@ export default function PriceCalculator({ className = '' }) {
             <Info size={12} /> Pay in 2
           </button>
           {showHint && (
-            <div className="absolute right-0 top-full z-10 mt-2 w-52 border border-mist-100 bg-white p-3 text-[12px] leading-relaxed text-ink-500 shadow-lg">
+            <div className="absolute right-0 top-full z-10 mt-2 w-52 rounded-xl border border-mist-100 bg-white p-3 text-[12px] leading-relaxed text-ink-500 shadow-lg">
               Pay 50% to start, and the balance when your draft is ready for review.
             </div>
           )}
@@ -93,11 +93,11 @@ export default function PriceCalculator({ className = '' }) {
         <div>
           <div className="mb-1.5 flex items-center justify-between gap-2">
             <span className="text-[13px] font-medium text-ink-700">Length</span>
-            <div className="inline-flex border border-mist-200 bg-mist-50 p-0.5 text-[11px] font-semibold">
+            <div className="inline-flex rounded-full border border-mist-200 bg-mist-50 p-0.5 text-[11px] font-semibold">
               <button
                 type="button"
                 onClick={() => switchUnit('words')}
-                className={`px-2.5 py-1 transition-colors ${
+                className={`rounded-full px-3 py-1 transition-colors ${
                   unit === 'words' ? 'bg-ink-950 text-white' : 'text-ink-500 hover:text-ink-900'
                 }`}
               >
@@ -106,7 +106,7 @@ export default function PriceCalculator({ className = '' }) {
               <button
                 type="button"
                 onClick={() => switchUnit('pages')}
-                className={`px-2.5 py-1 transition-colors ${
+                className={`rounded-full px-3 py-1 transition-colors ${
                   unit === 'pages' ? 'bg-ink-950 text-white' : 'text-ink-500 hover:text-ink-900'
                 }`}
               >
@@ -146,7 +146,7 @@ export default function PriceCalculator({ className = '' }) {
         </label>
       </div>
 
-      <div className="mt-6 space-y-2 border border-mist-200 bg-mist-50 px-4 py-4 text-[13px]">
+      <div className="mt-6 space-y-2 rounded-2xl border border-mist-200 bg-[#fbfaf7] px-4 py-4 text-[13px]">
         <div className="flex justify-between gap-3 text-ink-600">
           <span>
             Writing · {quote.words.toLocaleString()} words
@@ -205,7 +205,7 @@ export default function PriceCalculator({ className = '' }) {
 
       <Link
         to="/order-now"
-        className="group mt-5 inline-flex w-full items-center justify-center gap-2 bg-ink-950 px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-ink-800"
+        className="btn btn-ink btn-lg group mt-5 w-full"
       >
         Continue to order
         <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-0.5" />

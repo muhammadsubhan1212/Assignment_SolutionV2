@@ -54,7 +54,7 @@ export default function LiveChatWidget() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 1, duration: 0.3 }}
         onClick={() => setOpen((v) => !v)}
-        className="fixed bottom-24 left-4 z-[60] flex h-14 w-14 items-center justify-center bg-ink-950 text-white shadow-xl shadow-ink-950/30 transition-colors hover:bg-ink-800 active:scale-95 sm:bottom-6 sm:left-6 sm:h-12 sm:w-12 lg:bottom-6"
+        className="fixed bottom-4 left-4 z-[45] flex h-14 w-14 items-center justify-center rounded-full bg-ink-950 text-white ring-1 ring-white/20 shadow-xl shadow-ink-950/30 transition-colors hover:bg-ink-800 active:scale-95 sm:bottom-6 sm:left-6 sm:h-12 sm:w-12 lg:bottom-6"
         aria-label={open ? 'Close live chat' : 'Open live chat'}
       >
         <AnimatePresence mode="wait">
@@ -77,7 +77,7 @@ export default function LiveChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.96 }}
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-x-3 bottom-44 z-[60] flex max-h-[min(70vh,520px)] w-auto flex-col overflow-hidden border border-mist-200 bg-white shadow-[0_24px_64px_-16px_rgba(12,22,32,0.28)] sm:inset-x-auto sm:bottom-24 sm:left-6 sm:w-[340px] lg:bottom-24"
+            className="fixed inset-x-3 bottom-24 z-[60] flex max-h-[min(70vh,520px)] w-auto flex-col overflow-hidden rounded-2xl border border-mist-200 bg-white shadow-[0_24px_64px_-16px_rgba(12,22,32,0.28)] sm:inset-x-auto sm:bottom-24 sm:left-6 sm:w-[340px] lg:bottom-24"
           >
             <div className="flex items-center gap-3 bg-ink-950 px-5 py-4">
               <div className="flex h-9 w-9 items-center justify-center bg-white/10">

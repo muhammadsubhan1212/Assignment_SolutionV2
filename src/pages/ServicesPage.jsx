@@ -61,7 +61,7 @@ export default function ServicesPage() {
                       transition={{ duration: 0.45, delay: (i % 3) * 0.06 }}
                     >
                       <Link to={item.path} className="group block">
-                        <div className="relative aspect-[4/3] overflow-hidden bg-ink-900">
+                        <div className="relative aspect-[4/3] overflow-hidden rounded-[20px] bg-ink-900">
                           <img
                             src={photo.src}
                             alt={photo.alt}

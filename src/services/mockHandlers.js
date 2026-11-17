@@ -32,32 +32,7 @@ export async function handleMockRequest(config) {
     };
   }
 
-  if (method === 'post' && url === 'contact-us') {
-    if (!data.name || !data.email || !data.detail) {
-      return { status: 400, data: { success: false, message: 'Please complete all required fields.' } };
-    }
-    console.info('[MOCK contact-us]', data);
-    return {
-      status: 200,
-      data: { success: true, message: 'Thanks! Our team will reply within one business hour.' },
-    };
-  }
-
-  if (method === 'post' && url === 'order-now') {
-    if (!data.name || !data.email || !data.paperTopic) {
-      return { status: 400, data: { success: false, message: 'Missing required order details.' } };
-    }
-    const orderId = `AS-${Date.now().toString().slice(-8)}`;
-    console.info('[MOCK order-now]', { orderId, ...data });
-    return {
-      status: 200,
-      data: {
-        success: true,
-        orderId,
-        message: `Order ${orderId} received. A coordinator will confirm pricing shortly.`,
-      },
-    };
-  }
+  // contact-us and order-now are real endpoints (see /api and server/mailer.js)
 
   if (method === 'post' && url === 'login') {
     if (!data.email || !data.password) {

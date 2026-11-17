@@ -39,10 +39,10 @@ export default function Home() {
         <WhyChooseUs />
       </Suspense>
       <Suspense fallback={<SectionFallback />}>
-        <Features />
+        <Statistics />
       </Suspense>
       <Suspense fallback={<SectionFallback />}>
-        <Statistics />
+        <Features />
       </Suspense>
       <Suspense fallback={<SectionFallback />}>
         <Writers />
